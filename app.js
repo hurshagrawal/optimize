@@ -7,9 +7,11 @@ var express = require('express'),
 
 // Redis database configuration
 if (process.env.REDISTOGO_URL) {  //for heroku redisToGo
+	console.log("ok, gets here");
 	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
 	var redis = require("redis").createClient(rtg.port, rtg.hostname);
-
+	
+	console.log(rtg.href);
 	redis.auth(rtg.auth.split(":")[1]);
 } else {
 	var redis = require("redis").createClient();
