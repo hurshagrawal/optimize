@@ -1,0 +1,25 @@
+hit optimize site
+
+active session?
+	-no
+	-issue session
+	
+yes
+
+google authed?
+	-no
+	-auth to google
+	-callback to optimize
+
+yes
+
+choose calendar list and day
+	query google calendar for events on those 1) calendars + 2)dates
+	return events
+	
+choose which events
+
+check data (times, location, required?, complete?)
+	default transit time if no loc?
+	
+return path
