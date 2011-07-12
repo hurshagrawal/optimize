@@ -10,8 +10,8 @@ if (process.env.REDISTOGO_URL) {  //for heroku redisToGo
 	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
 	var redis = require("redis").createClient(rtg.port, rtg.hostname);
 	
-	console.log(rtg.href);
-	redis.auth(rtg.auth.split(":")[2]);
+	console.log(rtg.auth.split(":")[1]);
+	redis.auth(rtg.auth.split(":")[1]);
 } else {
 	var redis = require("redis").createClient();
 }
