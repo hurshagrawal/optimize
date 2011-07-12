@@ -1,10 +1,9 @@
 /**
- * Module dependencies.
+ * Module dependencies: node, express, ejs, redis, connect-redis, node-oauth
  */
 
-var express = require('express');
-
-var app = module.exports = express.createServer();
+var express = require('express'),
+	sys 	= require('sys');
 
 // Redis database configuration
 if (process.env.REDISTOGO_URL) {  //for heroku redisToGo
@@ -13,37 +12,54 @@ if (process.env.REDISTOGO_URL) {  //for heroku redisToGo
 
 	redis.auth(rtg.auth.split(":")[1]);
 } else {
-  var redis = require("redis").createClient();
+	var redis = require("redis").createClient();
 }
 
+var RedisStore = require('connect-redis')(express);
+
+redis.on("error", function(err){
+	console.log("Error " + err);
+});
+//Google config
+
+//Facebook config
 
 // Configuration
+var app = module.exports = express.createServer();
 
 app.configure(function(){
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.cookieParser());
-  app.use(express.session({ secret: 'your secret here' }));
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'ejs');
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(express.cookieParser());
+	app.use(express.session({ store: new RedisStore({maxAge: 86400000}), secret: 'myNightWillBeAwesome' }));
+	app.use(app.router);
+	app.use(express.static(__dirname + '/public'));
 });
 
+// Environments
 app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+	app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
 });
 
 app.configure('production', function(){
-  app.use(express.errorHandler()); 
+	app.use(express.errorHandler()); 
+});
+
+// Serve Error
+app.error(function(err, req, res, next){
+	res.send('404 Not Found<br><br>'+err,404);
 });
 
 // Routes
-
 app.get('/', function(req, res){
-  res.render('index', {
-    title: 'Express'
-  });
+	if (req.session.visits) req.session.visits++;
+	else req.session.visits = 1;
+	
+	res.render('index', {
+		title: '' + req.session.visits
+	});
 });
 
 app.listen(3000);
