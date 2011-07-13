@@ -4,7 +4,7 @@
 
 var express = require('express'),
 	sys 	= require('sys'),
-	oauth	= require('./node-oauth/lib/oauth').OAuth;
+	oauth	= require('../node-oauth/lib/oauth').OAuth;
 
 // Redis database configuration
 if (process.env.REDISTOGO_URL) {  //for heroku redisToGo
