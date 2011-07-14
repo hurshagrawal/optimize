@@ -64,10 +64,10 @@ app.get('/getGoogleRequestToken', function(req, res) {
 
 app.get('/googleAuthSuccess', function(req, res) {
 	if(typeof(url.parse(req.url).query) !== 'undefined') {
-		var qs = url.parse(req.url, true).query.token;
+		var qs = url.parse(req.url, true).query;
 	}
 	
-	client.set(req.sessionID + ':google:verifier', qs, redis.print);
+//	client.set(req.sessionID + ':google:verifier', qs, redis.print);
 	
 //	getGoogleAccessToken(req, res);
 	
