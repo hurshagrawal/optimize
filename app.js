@@ -72,6 +72,7 @@ app.get('/googleAuthSuccess', function(req, res) {
 	getGoogleAccessToken(req, res);
 //	getGoogleCalendarList(req, res);
 	
+	console.log("after everything - oh asyncronousness!");
 	res.render('events', {
 		title: "Authorized with Google!"
 	});
@@ -131,16 +132,15 @@ var getGoogleCalendarList = function(req, res) {
 			console.log("access token: "+replies[0]); //access token
 			console.log("access token secret: "+replies[1]); //access token secret
 			var requestUrl = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
-			console.log(googleoa.signUrl(requestUrl, replies[0], replies[1], "GET"));
-			// googleoa.get(requestUrl, replies[0], replies[1], function(error, data, datatwo, results) {
-			// 	if (error) {
-			// 		sys.puts('error: ' + sys.inspect(error));
-			// 	} else {
-			// 		console.log("ok, got here");
-			// 		console.log("data: "+data);
-			// 		console.log("results: "+results);
-			// 	}
-			// });
+			googleoa.get(requestUrl, replies[0], replies[1], function(error, data, results) {
+				if (error) {
+					sys.puts('error: ' + sys.inspect(error));
+				} else {
+					console.log("ok, got here");
+					console.log("data: "+data);
+					console.log("results: "+results);
+				}
+			});
     	});
 };
 
