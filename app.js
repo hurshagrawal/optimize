@@ -133,6 +133,7 @@ var getGoogleCalendarList = function(req, res) {
 			var requestUrl = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
 			googleoa.get(requestUrl, replies[0], replies[1], function(error, data, results) {
 				if (error) {
+					console.log("PENIS");
 					sys.puts('error: ' + sys.inspect(error));
 				} else {
 					console.log("data: "+data);
