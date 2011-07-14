@@ -135,7 +135,8 @@ var getGoogleCalendarList = function(req, res) {
 				if (error) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {
-					console.log(results);
+					console.log("data: "+data);
+					console.log("results: "+results);
 				}
 			});
     	});
