@@ -67,9 +67,9 @@ app.get('/googleAuthSuccess', function(req, res) {
 		var qs = url.parse(req.url, true).query.oauth_verifier;
 	}
 	
-//	client.set(req.sessionID + ':google:verifier', qs, redis.print);
+	client.set(req.sessionID + ':google:verifier', qs, redis.print);
 	
-//	getGoogleAccessToken(req, res);
+	getGoogleAccessToken(req, res);
 	
 	res.render('index', {
 		title: "SUCCESS BITCHES : " + qs
