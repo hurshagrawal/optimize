@@ -72,7 +72,6 @@ app.get('/googleAuthSuccess', function(req, res) {
 	getGoogleAccessToken(req, res);
 //	getGoogleCalendarList(req, res);
 	
-	console.log("after everything - oh asyncronousness!");
 	res.render('events', {
 		title: "Authorized with Google!"
 	});
@@ -88,9 +87,9 @@ app.listen(port, function(){
 var getGoogleRequestToken = function(req, res) {
 	googleoa.getOAuthRequestToken({"scope": "http://www.google.com/calendar/feeds",
 		"oauth_callback": "http://"+SERVERURL+"/googleAuthSuccess"}, 
-		function(error_a, oauth_token, oauth_token_secret, oauth_callback_confirmed, results_a) {
-			if (error_a) {
-				res.send('error: ' + JSON.stringify(error_a));
+		function(error, oauth_token, oauth_token_secret, oauth_callback_confirmed, results) {
+			if (error) {
+				res.send('error: ' + JSON.stringify(error));
 			} else {
 				res.redirect('https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=' + oauth_token);
 			
@@ -111,9 +110,9 @@ var getGoogleAccessToken = function(req, res) {
 //			console.log(replies[0]); //request token
 //			console.log(replies[1]); //request token secret
 //			console.log(replies[2]); //verifier
-			googleoa.getOAuthAccessToken(replies[0], replies[1], replies[2], function(error_b, oauth_access_token, oauth_access_token_secret, results_b) {
-				if (error_b) {
-					sys.puts('error: ' + sys.inspect(error_b));
+			googleoa.getOAuthAccessToken(replies[0], replies[1], replies[2], function(error, oauth_access_token, oauth_access_token_secret, results) {
+				if (error) {
+					sys.puts('error: ' + sys.inspect(error));
 				} else {            
 //					console.log(oauth_access_token);
 //					console.log(oauth_access_token_secret);
@@ -131,16 +130,26 @@ var getGoogleCalendarList = function(req, res) {
 		function(err, replies) {
 			console.log("access token: "+replies[0]); //access token
 			console.log("access token secret: "+replies[1]); //access token secret
-			var requestUrl = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
-			googleoa.get(requestUrl, replies[0], replies[1], function(error_c, data, results_c) {
-				if (error_c) {
-					sys.puts('error: ' + sys.inspect(error_c));
-				} else {
-					console.log("ok, got here");
-					console.log("data: "+data);
-					console.log("results: "+results_c);
-				}
-			});
+			
+			var requestURL = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
+			requestURL = googleoa.signUrl(requestUrl, replies[0], replies[1], "GET");
+			
+			console.log(url.parse(requestURL).host);
+			console.log(url.parse(requestURL).auth);
+			console.log(url.parse(requestURL).hostname);
+			console.log(url.parse(requestURL).pathname);
+			console.log(url.parse(requestURL).search);
+			console.log(url.parse(requestURL).query);
+			console.log(url.parse(requestURL).hash);
+			// googleoa.get(requestUrl, replies[0], replies[1], function(error, data, datatwo, results) {
+			// 	if (error) {
+			// 		sys.puts('error: ' + sys.inspect(error));
+			// 	} else {
+			// 		console.log("ok, got here");
+			// 		console.log("data: "+data);
+			// 		console.log("results: "+results);
+			// 	}
+			// });
     	});
 };
 
