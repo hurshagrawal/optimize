@@ -114,6 +114,8 @@ var getGoogleAccessToken = function(req, res) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {            
 					console.log(results);
+					console.log(oauth_access_token);
+					console.log(oauth_access_token_secret);
 		          // client.set(req.sessionID+':twitter:username', results2.screen_name, redis.print);
 		          // client.set(req.sessionID+':twitter:accessToken', oauth_access_token, redis.print);
 		          // client.set(req.sessionID+':twitter:accessTokenSecret', oauth_access_token_secret, redis.print);
