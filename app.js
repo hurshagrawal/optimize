@@ -5,6 +5,7 @@
 var express 	= require('express'),
 	sys 		= require('sys'),
 	url			= require('url'),
+	http		= require('http'),
 	oauth		= require(__dirname + '/node-oauth/lib/oauth').OAuth,
 	redis		= require("redis"),
 	client		= redis.createClient(),
