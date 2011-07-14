@@ -133,32 +133,33 @@ var getGoogleCalendarList = function(req, res) {
 //			console.log("access token secret: "+replies[1]); //access token secret
 			
 			var requestURL = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
-			requestURL = googleoa.signUrl(requestURL, replies[0], replies[1], "GET");
-			
-			console.log(url.parse(requestURL).host);
-			console.log(url.parse(requestURL).pathname + url.parse(requestURL).search);
-			
-			var requestOptions = {
-			  host: url.parse(requestURL).host,
-			  port: 443,
-			  path: url.parse(requestURL).pathname + url.parse(requestURL).search
-			};
-
-			http.get(requestOptions, function(res) {
-			  console.log("Got response: " + res.statusCode);
-			}).on('error', function(e) {
-			  console.log("Got error: " + e.message);
-			});
-
-			// googleoa.get(requestUrl, replies[0], replies[1], function(error, data, datatwo, results) {
-			// 	if (error) {
-			// 		sys.puts('error: ' + sys.inspect(error));
-			// 	} else {
-			// 		console.log("ok, got here");
-			// 		console.log("data: "+data);
-			// 		console.log("results: "+results);
-			// 	}
+			// requestURL = googleoa.signUrl(requestURL, replies[0], replies[1], "GET");
+			// 
+			// console.log(url.parse(requestURL).host);
+			// console.log(url.parse(requestURL).pathname + url.parse(requestURL).search);
+			// 
+			// var requestOptions = {
+			//   host: url.parse(requestURL).host,
+			//   port: 443,
+			//   path: url.parse(requestURL).pathname + url.parse(requestURL).search
+			// };
+			// 
+			// http.get(requestOptions, function(res) {
+			//   console.log("Got response: " + res.statusCode);
+			// }).on('error', function(e) {
+			//   console.log("Got error: " + e.message);
 			// });
+			console.log("runs");
+			googleoa.get(requestURL, replies[0], replies[1], function(error, data, results) {
+				console.log("running2131232");
+				if (error) {
+					sys.puts('error: ' + sys.inspect(error));
+				} else {
+					console.log("ok, got here");
+					console.log("data: "+data);
+					console.log("results: "+results);
+				}
+			});
     	});
 };
 
