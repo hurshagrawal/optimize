@@ -4,11 +4,12 @@
 
 var express = require('express'),
 	sys 	= require('sys'),
-	oauth	= require('../node-oauth/lib/oauth').OAuth;
+	url		= require('url'),
+	oauth	= require(__dirname + '/node-oauth/lib/oauth').OAuth;
 
 // Redis database configuration
 if (process.env.REDISTOGO_URL) {  //for heroku redisToGo
-	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+	var rtg   = url.parse(process.env.REDISTOGO_URL);
 	var redis = require("redis");
 	var client = redis.createClient(rtg.port, rtg.hostname);
 	
@@ -72,6 +73,24 @@ app.get('/getGoogleRequestToken', function(req, res) {
 	getGoogleRequestToken(req, res);
 });
 
+app.get('/googleAuthSuccess', function(req, res) {
+  if(typeof(url.parse(req.url).query) !== 'undefined') {
+    var qs = url.parse(req.url, true).query.token;
+  }
+
+	client.set(req.sessionID + ':google:verifier', qs, function(err, reply){
+	  exchangeGoogleToken(req, res);
+	
+	  // var to = setTimeout(function () {
+	  //   res.writeHead(302, {
+	  //     'Location': '/'
+	  //   });
+	  //   res.end();
+	  // 	
+	  // }, 3000);
+	
+	});
+});
 
 
 var port = process.env.PORT || 3000;
@@ -95,3 +114,25 @@ var getGoogleRequestToken = function(req, res) {
 		}
 	});
 };
+
+var exchangeGoogleToken = function(req, res) {
+	client.mget(req.sessionID + ':google:requestToken', 
+				req.sessionID + ':google:requestTokenSecret', 
+				req.sessionID + ':google:verifier', 
+		function(err, replies) {
+			console.log(replies[0]);
+			console.log(replies[1]);
+			console.log(replies[2]);
+			googleoa.getOAuthAccessToken(replies[0], replies[1], replies[2], function(error, oauth_access_token, oauth_access_token_secret, results) {
+		if (error) {
+			sys.puts('error: ' + sys.inspect(error));
+		} else {            
+			res.send(results);
+          // client.set(req.sessionID+':twitter:username', results2.screen_name, redis.print);
+          // client.set(req.sessionID+':twitter:accessToken', oauth_access_token, redis.print);
+          // client.set(req.sessionID+':twitter:accessTokenSecret', oauth_access_token_secret, redis.print);
+		}
+		});
+    });
+};
+
