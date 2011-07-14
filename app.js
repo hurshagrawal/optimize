@@ -93,9 +93,9 @@ var getGoogleRequestToken = function(req, res) {
 			} else {
 				res.redirect('https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=' + oauth_token);
 			
-				sys.puts('oauth_token: ' + oauth_token);
+//				console.log('oauth_token: ' + oauth_token);
+//				console.log('oauth_token_secret: ' + oauth_token_secret);
 				client.set(req.sessionID + ':google:requestToken', oauth_token, redis.print);
-				sys.puts('oauth_token_secret: ' + oauth_token_secret);
 				client.set(req.sessionID + ':google:requestTokenSecret', oauth_token_secret, redis.print);
 				sys.puts("Requesting access token...");
 			}
@@ -128,15 +128,24 @@ var getGoogleCalendarList = function(req, res) {
 	client.mget(req.sessionID + ':google:accessToken', 
 				req.sessionID + ':google:accessTokenSecret', 
 		function(err, replies) {
-			console.log("access token: "+replies[0]); //access token
-			console.log("access token secret: "+replies[1]); //access token secret
+//			console.log("access token: "+replies[0]); //access token
+//			console.log("access token secret: "+replies[1]); //access token secret
 			
 			var requestURL = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
 			requestURL = googleoa.signUrl(requestURL, replies[0], replies[1], "GET");
 			
-			console.log("host: "+url.parse(requestURL).host);
+			var requestOptions = {
+			  host: url.parse(requestURL).host,
+			  port: 80,
+			  path: url.parse(requestURL).pathname + url.parse(requestURL).search
+			};
 
-			console.log("path: "+url.parse(requestURL).pathname + url.parse(requestURL).search);
+			http.get(requestOptions, function(res) {
+			  console.log("Got response: " + res.statusCode);
+			}).on('error', function(e) {
+			  console.log("Got error: " + e.message);
+			});
+
 			// googleoa.get(requestUrl, replies[0], replies[1], function(error, data, datatwo, results) {
 			// 	if (error) {
 			// 		sys.puts('error: ' + sys.inspect(error));
