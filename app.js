@@ -74,14 +74,22 @@ app.get('/getGoogleRequestToken', function(req, res) {
 });
 
 app.get('/googleAuthSuccess', function(req, res) {
-	if(typeof(url.parse(req.url).query) !== 'undefined') {
-		var qs = url.parse(req.url, true).query.token;
-	}
-
-	client.set(req.sessionID + ':google:verifier', qs, redis.print);
+	// if(typeof(url.parse(req.url).query) !== 'undefined') {
+	// 	var qs = url.parse(req.url, true).query.token;
+	// }
+	// 
+	// client.set(req.sessionID + ':google:verifier', qs, redis.print);
+	// 
+	//   var to = setTimeout(function () {
+	//     res.writeHead(302, {
+	//       'Location': '/'
+	//     });
+	//     res.end();
+	//   	
+	//   }, 3000);
 	
 	res.render('index', {
-		title: qs
+		title: "SUCCESS BITCHES"
 	});
 });
 
