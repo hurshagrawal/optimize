@@ -71,8 +71,10 @@ app.get('/googleAuthSuccess', function(req, res) {
 	
 //	getGoogleAccessToken(req, res);
 	
+	console.log(qs);
+	
 	res.render('index', {
-		title: "SUCCESS BITCHES : " + qs
+		title: "SUCCESS BITCHES : " + qs.toString()
 	});
 });
 
