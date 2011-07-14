@@ -132,7 +132,7 @@ var getGoogleCalendarList = function(req, res) {
 			console.log("access token secret: "+replies[1]); //access token secret
 			
 			var requestURL = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
-			requestURL = googleoa.signUrl(requestUrl, replies[0], replies[1], "GET");
+			requestURL = googleoa.signUrl(requestURL, replies[0], replies[1], "GET");
 			
 			console.log(url.parse(requestURL).host);
 			console.log(url.parse(requestURL).auth);
