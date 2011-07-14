@@ -17,7 +17,7 @@ client.on("error", function(err){
 
 // Google config
 var googleoa = new oauth("https://www.google.com/accounts/OAuthGetRequestToken",
-             "https://www.google.com/accounts/OAuthAuthorizeToken", 
+             "https://www.google.com/accounts/OAuthGetAccessToken", 
              URL,  "2UMRMh8WhzqwxCKpvZZ4F1Sp", 
              "1.0", null, "HMAC-SHA1");       
 
