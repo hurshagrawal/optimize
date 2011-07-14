@@ -134,13 +134,9 @@ var getGoogleCalendarList = function(req, res) {
 			var requestURL = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
 			requestURL = googleoa.signUrl(requestURL, replies[0], replies[1], "GET");
 			
-			console.log(url.parse(requestURL).host);
-			console.log(url.parse(requestURL).auth);
-			console.log(url.parse(requestURL).hostname);
-			console.log(url.parse(requestURL).pathname);
-			console.log(url.parse(requestURL).search);
-			console.log(url.parse(requestURL).query);
-			console.log(url.parse(requestURL).hash);
+			console.log("host: "+url.parse(requestURL).host);
+
+			console.log("path: "+url.parse(requestURL).pathname + url.parse(requestURL).search);
 			// googleoa.get(requestUrl, replies[0], replies[1], function(error, data, datatwo, results) {
 			// 	if (error) {
 			// 		sys.puts('error: ' + sys.inspect(error));
