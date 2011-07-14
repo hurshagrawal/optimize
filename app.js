@@ -106,19 +106,17 @@ var getGoogleAccessToken = function(req, res) {
 				req.sessionID + ':google:requestTokenSecret', 
 				req.sessionID + ':google:verifier', 
 		function(err, replies) {
-			console.log(replies[0]);
-			console.log(replies[1]);
-			console.log(replies[2]);
+//			console.log(replies[0]); //request token
+//			console.log(replies[1]); //request token secret
+//			console.log(replies[2]); //verifier
 			googleoa.getOAuthAccessToken(replies[0], replies[1], replies[2], function(error, oauth_access_token, oauth_access_token_secret, results) {
 				if (error) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {            
-					console.log(results);
-					console.log(oauth_access_token);
-					console.log(oauth_access_token_secret);
-		          // client.set(req.sessionID+':twitter:username', results2.screen_name, redis.print);
-		          // client.set(req.sessionID+':twitter:accessToken', oauth_access_token, redis.print);
-		          // client.set(req.sessionID+':twitter:accessTokenSecret', oauth_access_token_secret, redis.print);
+//					console.log(oauth_access_token);
+//					console.log(oauth_access_token_secret);
+					client.set(req.sessionID+':google:accessToken', oauth_access_token, redis.print);
+					client.set(req.sessionID+':google:accessTokenSecret', oauth_access_token_secret, redis.print);
 				}
 			});
     	});
