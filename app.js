@@ -70,7 +70,7 @@ app.get('/googleAuthSuccess', function(req, res) {
 	client.set(req.sessionID + ':google:verifier', qs, redis.print);
 	
 	getGoogleAccessToken(req, res);
-	getGoogleCalendarList(req, res);
+//	getGoogleCalendarList(req, res);
 	
 	res.render('events', {
 		title: "Authorized with Google!"
@@ -118,6 +118,7 @@ var getGoogleAccessToken = function(req, res) {
 //					console.log(oauth_access_token_secret);
 					client.set(req.sessionID+':google:accessToken', oauth_access_token, redis.print);
 					client.set(req.sessionID+':google:accessTokenSecret', oauth_access_token_secret, redis.print);
+					getGoogleCalendarList(req, res);
 				}
 			});
     	});
