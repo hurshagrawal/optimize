@@ -140,7 +140,7 @@ var getGoogleCalendarList = function(req, res) {
 			
 			var requestOptions = {
 			  host: url.parse(requestURL).host,
-			  port: 80,
+			  port: 443,
 			  path: url.parse(requestURL).pathname + url.parse(requestURL).search
 			};
 
