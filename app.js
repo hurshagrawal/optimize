@@ -10,7 +10,7 @@ var express 	= require('express'),
 	client		= redis.createClient(),
 	RedisStore 	= require('connect-redis')(express);
 
-var URL = "ec2-67-202-30-240.compute-1.amazonaws.com";
+var SERVERURL = "ec2-67-202-30-240.compute-1.amazonaws.com";
 client.on("error", function(err){
 	console.log("Error " + err);
 });
@@ -18,7 +18,7 @@ client.on("error", function(err){
 // Google config
 var googleoa = new oauth("https://www.google.com/accounts/OAuthGetRequestToken",
              "https://www.google.com/accounts/OAuthGetAccessToken", 
-             URL,  "2UMRMh8WhzqwxCKpvZZ4F1Sp", 
+             SERVERURL,  "2UMRMh8WhzqwxCKpvZZ4F1Sp", 
              "1.0", null, "HMAC-SHA1");       
 
 // Facebook config
@@ -70,9 +70,10 @@ app.get('/googleAuthSuccess', function(req, res) {
 	client.set(req.sessionID + ':google:verifier', qs, redis.print);
 	
 	getGoogleAccessToken(req, res);
+	getGoogleCalendarList(req, res);
 	
-	res.render('index', {
-		title: "SUCCESS BITCHES : " + qs
+	res.render('events', {
+		title: "Authorized with Google!"
 	});
 });
 
@@ -85,7 +86,7 @@ app.listen(port, function(){
 
 var getGoogleRequestToken = function(req, res) {
 	googleoa.getOAuthRequestToken({"scope": "http://www.google.com/calendar/feeds",
-		"oauth_callback": "http://"+URL+"/googleAuthSuccess"}, 
+		"oauth_callback": "http://"+SERVERURL+"/googleAuthSuccess"}, 
 		function(error, oauth_token, oauth_token_secret, oauth_callback_confirmed, results) {
 			if (error) {
 				res.send('error: ' + JSON.stringify(error));
@@ -117,6 +118,21 @@ var getGoogleAccessToken = function(req, res) {
 //					console.log(oauth_access_token_secret);
 					client.set(req.sessionID+':google:accessToken', oauth_access_token, redis.print);
 					client.set(req.sessionID+':google:accessTokenSecret', oauth_access_token_secret, redis.print);
+				}
+			});
+    	});
+};
+
+var getGoogleCalendarList = function(req, res) {
+	client.mget(req.sessionID + ':google:accessToken', 
+				req.sessionID + ':google:accessTokenSecret', 
+		function(err, replies) {
+			var requestUrl = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
+			googleoa.get(requestUrl, replies[0], replies[1], function(error, results) {
+				if (error) {
+					sys.puts('error: ' + sys.inspect(error));
+				} else {
+					console.log(results);
 				}
 			});
     	});

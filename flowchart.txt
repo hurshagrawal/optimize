@@ -4,6 +4,7 @@ TODO-
 	forms - for getting which calendar + day
 	
 	set up server to restart node if it crashes (or redis?)
+	check if session already exits - if so, do NOT render main page (render logged in with google/fb)
 
 -----
 
