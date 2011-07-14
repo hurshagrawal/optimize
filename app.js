@@ -102,7 +102,7 @@ app.listen(port, function(){
 
 var getGoogleRequestToken = function(req, res) {
 	googleoa.getOAuthRequestToken({"scope": "http://www.google.com/calendar/feeds",
-		"callback": "http://ec2-67-202-30-240.compute-1.amazonaws.com/googleSucess"}, 
+		"oauth_callback": "http://ec2-67-202-30-240.compute-1.amazonaws.com/googleSucess"}, 
 		function(error, oauth_token, oauth_token_secret, oauth_callback_confirmed, results) {
 			if (error) {
 				res.send('error: ' + JSON.stringify(error));
