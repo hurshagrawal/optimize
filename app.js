@@ -2,37 +2,26 @@
  * Module dependencies: node, express, ejs, redis, connect-redis, node-oauth
  */
 
-var express = require('express'),
-	sys 	= require('sys'),
-	url		= require('url'),
-	oauth	= require(__dirname + '/node-oauth/lib/oauth').OAuth;
+var express 	= require('express'),
+	sys 		= require('sys'),
+	url			= require('url'),
+	oauth		= require(__dirname + '/node-oauth/lib/oauth').OAuth,
+	redis		= require("redis"),
+	client		= redis.createClient(),
+	RedisStore 	= require('connect-redis')(express);
 
-// Redis database configuration
-if (process.env.REDISTOGO_URL) {  //for heroku redisToGo
-	var rtg   = url.parse(process.env.REDISTOGO_URL);
-	var redis = require("redis");
-	var client = redis.createClient(rtg.port, rtg.hostname);
-	
-	//console.log(rtg.auth.split(":")[1]);
-	redis.auth(rtg.auth.split(":")[1]);
-} else {
-	var redis = require("redis");
-	var client = redis.createClient();
-}
-
-var RedisStore = require('connect-redis')(express);
-
+var URL = "ec2-67-202-30-240.compute-1.amazonaws.com";
 client.on("error", function(err){
 	console.log("Error " + err);
 });
 
-//Google config
+// Google config
 var googleoa = new oauth("https://www.google.com/accounts/OAuthGetRequestToken",
              "https://www.google.com/accounts/OAuthAuthorizeToken", 
-             "ec2-67-202-30-240.compute-1.amazonaws.com",  "2UMRMh8WhzqwxCKpvZZ4F1Sp", 
+             URL,  "2UMRMh8WhzqwxCKpvZZ4F1Sp", 
              "1.0", null, "HMAC-SHA1");       
 
-//Facebook config
+// Facebook config
 
 // Configuration
 var app = module.exports = express.createServer();
@@ -65,7 +54,7 @@ app.error(function(err, req, res, next){
 // Routes
 app.get('/', function(req, res){
 	res.render('index', {
-		title: "Optimize"
+		title: "Welcome"
 	});
 });
 
@@ -79,6 +68,8 @@ app.get('/googleAuthSuccess', function(req, res) {
 	}
 
 	client.set(req.sessionID + ':google:verifier', qs, redis.print);
+	
+	getGoogleAccessToken(req, res);
 	
 	res.render('index', {
 		title: "SUCCESS BITCHES"
@@ -94,7 +85,7 @@ app.listen(port, function(){
 
 var getGoogleRequestToken = function(req, res) {
 	googleoa.getOAuthRequestToken({"scope": "http://www.google.com/calendar/feeds",
-		"oauth_callback": "http://ec2-67-202-30-240.compute-1.amazonaws.com/googleAuthSuccess"}, 
+		"oauth_callback": "http://"+URL+"/googleAuthSuccess"}, 
 		function(error, oauth_token, oauth_token_secret, oauth_callback_confirmed, results) {
 			if (error) {
 				res.send('error: ' + JSON.stringify(error));
@@ -110,7 +101,7 @@ var getGoogleRequestToken = function(req, res) {
 		});
 };
 
-var exchangeGoogleToken = function(req, res) {
+var getGoogleAccessToken = function(req, res) {
 	client.mget(req.sessionID + ':google:requestToken', 
 				req.sessionID + ':google:requestTokenSecret', 
 				req.sessionID + ':google:verifier', 
@@ -119,15 +110,15 @@ var exchangeGoogleToken = function(req, res) {
 			console.log(replies[1]);
 			console.log(replies[2]);
 			googleoa.getOAuthAccessToken(replies[0], replies[1], replies[2], function(error, oauth_access_token, oauth_access_token_secret, results) {
-		if (error) {
-			sys.puts('error: ' + sys.inspect(error));
-		} else {            
-			res.send(results);
-          // client.set(req.sessionID+':twitter:username', results2.screen_name, redis.print);
-          // client.set(req.sessionID+':twitter:accessToken', oauth_access_token, redis.print);
-          // client.set(req.sessionID+':twitter:accessTokenSecret', oauth_access_token_secret, redis.print);
-		}
-		});
-    });
+				if (error) {
+					sys.puts('error: ' + sys.inspect(error));
+				} else {            
+					res.send(results);
+		          // client.set(req.sessionID+':twitter:username', results2.screen_name, redis.print);
+		          // client.set(req.sessionID+':twitter:accessToken', oauth_access_token, redis.print);
+		          // client.set(req.sessionID+':twitter:accessTokenSecret', oauth_access_token_secret, redis.print);
+				}
+			});
+    	});
 };
 
