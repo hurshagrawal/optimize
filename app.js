@@ -150,7 +150,7 @@ var getGoogleCalendarList = function(req, res) {
 			//   console.log("Got error: " + e.message);
 			// });
 			console.log("runs");
-			googleoa.get(requestURL, replies[0], replies[1], function(error, data, results) {
+			var abc = googleoa.get(requestURL, replies[0], replies[1], function(error, data, results) {
 				console.log("running2131232");
 				if (error) {
 					sys.puts('error: ' + sys.inspect(error));
@@ -160,6 +160,8 @@ var getGoogleCalendarList = function(req, res) {
 					console.log("results: "+results);
 				}
 			});
+			
+			console.log(abc);
     	});
 };
 
