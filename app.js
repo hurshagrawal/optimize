@@ -101,19 +101,21 @@ app.listen(port, function(){
 
 
 var getGoogleRequestToken = function(req, res) {
-	googleoa.getOAuthRequestToken({"scope":"http://www.google.com/calendar/feeds"}, function(error, oauth_token, oauth_token_secret, oauth_callback_confirmed, results) {
-		if (error) {
-			res.send('error: ' + JSON.stringify(error));
-		} else {
-			res.redirect('https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=' + oauth_token);
+	googleoa.getOAuthRequestToken({"scope": "http://www.google.com/calendar/feeds",
+		"callback": "http://ec2-67-202-30-240.compute-1.amazonaws.com/googleSucess"}, 
+		function(error, oauth_token, oauth_token_secret, oauth_callback_confirmed, results) {
+			if (error) {
+				res.send('error: ' + JSON.stringify(error));
+			} else {
+				res.redirect('https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=' + oauth_token);
 			
-			sys.puts('oauth_token: ' + oauth_token);
-			client.set(req.sessionID + ':google:requestToken', oauth_token, redis.print);
-			sys.puts('oauth_token_secret: ' + oauth_token_secret);
-			client.set(req.sessionID + ':google:requestTokenSecret', oauth_token_secret, redis.print);
-			sys.puts("Requesting access token...");
-		}
-	});
+				sys.puts('oauth_token: ' + oauth_token);
+				client.set(req.sessionID + ':google:requestToken', oauth_token, redis.print);
+				sys.puts('oauth_token_secret: ' + oauth_token_secret);
+				client.set(req.sessionID + ':google:requestTokenSecret', oauth_token_secret, redis.print);
+				sys.puts("Requesting access token...");
+			}
+		});
 };
 
 var exchangeGoogleToken = function(req, res) {
