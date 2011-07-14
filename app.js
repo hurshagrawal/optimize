@@ -118,6 +118,7 @@ var getGoogleAccessToken = function(req, res) {
 //					console.log(oauth_access_token_secret);
 					client.set(req.sessionID+':google:accessToken', oauth_access_token, redis.print);
 					client.set(req.sessionID+':google:accessTokenSecret', oauth_access_token_secret, redis.print);
+					console.log("1");
 					getGoogleCalendarList(req, res);
 				}
 			});
@@ -128,6 +129,8 @@ var getGoogleCalendarList = function(req, res) {
 	client.mget(req.sessionID + ':google:accessToken', 
 				req.sessionID + ':google:accessTokenSecret', 
 		function(err, replies) {
+			console.log("access token: "+replies[0]); //access token
+			console.log("access token secret"+replies[1]); //access token secret
 			var requestUrl = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
 			googleoa.get(requestUrl, replies[0], replies[1], function(error, results) {
 				if (error) {
