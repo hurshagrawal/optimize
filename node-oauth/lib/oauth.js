@@ -346,9 +346,11 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 		var data=""; 
 		var self= this;
 		request.on('response', function (response) {
+			console.log("at response: "+response);
 			response.setEncoding('utf8');
 			response.on('data', function (chunk) {
 				data+=chunk;
+				console.log("at data");
 			});
 			response.on('end', function () {
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
