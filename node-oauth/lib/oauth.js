@@ -346,7 +346,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 		var data=""; 
 		var self= this;
 		request.on('response', function (response) {
-			console.log("at response: "+response);
+			console.log("at response: "+response.statusCode);
 			response.setEncoding('utf8');
 			response.on('data', function (chunk) {
 				data+=chunk;
