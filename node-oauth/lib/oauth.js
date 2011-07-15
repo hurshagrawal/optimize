@@ -340,25 +340,19 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 	else {
 		request= this._createClient(parsedUrl.port, parsedUrl.hostname, method, path, headers);
 	}
-	console.log('before callback');
+
 	if( callback ) {
-		console.log('yes callback');
 		var data=""; 
 		var self= this;
 		request.on('response', function (response) {
-			console.log("at response: "+response.statusCode);
-			console.log(response.headers.location);
 			response.setEncoding('utf8');
 			response.on('data', function (chunk) {
 				data+=chunk;
-				console.log("at data");
 			});
-			response.on('data', function () {
+//			response.on('end', function () { //BUGGY - node never receives end msg
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
-					console.log("ZIS IS DA STATUS CODE: "+response.statusCode);
 					callback(null, data, response);
 				} else {
-					console.log("else thing:"+response.statusCode);
 					// Follow 302 redirects with Location HTTP header
 					if(response.statusCode == 302 && response.headers && response.headers.location) {
 						self._performSecureRequest( oauth_token, oauth_token_secret, method, response.headers.location, extra_params, post_body, post_content_type,  callback);
@@ -367,7 +361,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 						callback({ statusCode: response.statusCode, data: data }, data, response);
 					}
 				}
-			});
+//			});
 		});
 
 		request.on("error", callback);
