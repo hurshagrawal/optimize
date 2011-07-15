@@ -355,6 +355,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 					console.log("ZIS IS DA STATUS CODE: "+response.statusCode);
 					callback(null, data, response);
 				} else {
+					console.log("else thing:"+response.statusCode);
 					// Follow 302 redirects with Location HTTP header
 					if(response.statusCode == 302 && response.headers && response.headers.location) {
 						self._performSecureRequest( oauth_token, oauth_token_secret, method, response.headers.location, extra_params, post_body, post_content_type,  callback);

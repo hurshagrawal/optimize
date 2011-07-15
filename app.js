@@ -161,7 +161,6 @@ var getGoogleCalendarList = function(req, res) {
 				}
 			});
 			
-			console.log(abc);
-    	});
+ 	});
 };
 
