@@ -349,7 +349,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 			response.on('data', function (chunk) {
 				data+=chunk;
 			});
-//			response.on('end', function () { //BUGGY - node never receives end msg
+			response.on('data', function () {
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
 					callback(null, data, response);
 				} else {
@@ -361,7 +361,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 						callback({ statusCode: response.statusCode, data: data }, data, response);
 					}
 				}
-//			});
+			});
 		});
 
 		request.on("error", callback);
