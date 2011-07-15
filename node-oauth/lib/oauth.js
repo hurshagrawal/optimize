@@ -353,7 +353,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 				data+=chunk;
 				console.log("at data");
 			});
-			//response.on('end', function () {
+			response.on('data', function () {
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
 					console.log("ZIS IS DA STATUS CODE: "+response.statusCode);
 					callback(null, data, response);
@@ -366,7 +366,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 					else {
 						callback({ statusCode: response.statusCode, data: data }, data, response);
 					}
-			//	}
+				}
 			});
 		});
 
