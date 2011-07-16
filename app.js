@@ -6,6 +6,7 @@ var express 	= require('express'),
 sys			= require('sys'),
 url			= require('url'),
 http		= require('http'),
+step		= require('/node_modules/step'),
 oauth		= require(__dirname + '/node-oauth/lib/oauth').OAuth,
 redis		= require("redis"),
 client	= redis.createClient(),
@@ -70,11 +71,29 @@ app.get('/googleAuthSuccess', function(req, res) {
 
 	client.set(req.sessionID + ':google:verifier', qs, redis.print);
 
-	getGoogleAccessToken(req, res);
+	step(
+		function authorizeWithGoogle() {
+			getGoogleAccessToken(req, res, this);
+		},
+		function getGoogleCalendarData() {
+			getGoogleCalendarList(req, res, this);
+		},
+		function returnListToClient() {
+			client.mget(req.sessionID+':google:calendarList',
+				function(err, replies) {
+					res.render('events', {
+						list: replies[0];
+					}
+				)}
+		)}
+	)
 
-	res.render('events', {
-		title: "Authorized with Google!"
-	});
+	
+	// getGoogleAccessToken(req, res, _.bind(function() {
+	// 	this.render('events', {
+	// 		title: "Authorized with Google!"
+	// 	});
+	// }, res));
 });
 
 //testing AJAX
@@ -106,7 +125,7 @@ var getGoogleRequestToken = function(req, res) {
 	});
 };
 
-var getGoogleAccessToken = function(req, res) {
+var getGoogleAccessToken = function(req, res, callback) {
 	client.mget(req.sessionID + ':google:requestToken', 
 	req.sessionID + ':google:requestTokenSecret', 
 	req.sessionID + ':google:verifier', 
@@ -123,13 +142,14 @@ var getGoogleAccessToken = function(req, res) {
 					//console.log(oauth_access_token_secret);
 					client.set(req.sessionID+':google:accessToken', oauth_access_token, redis.print);
 					client.set(req.sessionID+':google:accessTokenSecret', oauth_access_token_secret, redis.print);
-					getGoogleCalendarList(req, res);
+					
+					if (typeof callback == "function") callback();
 				}
 			});
 		});
 	};
 
-	var getGoogleCalendarList = function(req, res) {
+	var getGoogleCalendarList = function(req, res, callback) {
 		client.mget(req.sessionID + ':google:accessToken', 
 		req.sessionID + ':google:accessTokenSecret', 
 		function(err, replies) {
@@ -143,6 +163,8 @@ var getGoogleAccessToken = function(req, res) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {
 					client.set(req.sessionID+':google:calendarList', data, redis.print);
+					
+					if (typeof callback == "function") callback();
 				}
 			});
 		});
