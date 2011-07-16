@@ -4,16 +4,10 @@ body {
 }
 
 #main	{
-	width: 600px;
-	margin-left: auto;
-	margin-right: auto;
 	text-align: center;
 }
 
-#header {
-	width: 600px;
-	margin-left: auto;
-	margin-right: auto;
+#header, #load {
 	padding: 20px 0;
 	outline-style: solid;
 	outline-width: 2px;
