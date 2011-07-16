@@ -1,8 +1,26 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	padding: 50px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+#main	{
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#header {
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px 0;
+	outline-style: solid;
+	outline-width: 2px;
+}
+
+.centered {
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
 }

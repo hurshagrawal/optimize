@@ -3,12 +3,12 @@
 */
 
 var express 	= require('express'),
-sys 		= require('sys'),
+sys			= require('sys'),
 url			= require('url'),
 http		= require('http'),
 oauth		= require(__dirname + '/node-oauth/lib/oauth').OAuth,
 redis		= require("redis"),
-client		= redis.createClient(),
+client	= redis.createClient(),
 RedisStore 	= require('connect-redis')(express);
 
 var SERVERURL = "ec2-67-202-30-240.compute-1.amazonaws.com";
@@ -71,13 +71,16 @@ app.get('/googleAuthSuccess', function(req, res) {
 	client.set(req.sessionID + ':google:verifier', qs, redis.print);
 
 	getGoogleAccessToken(req, res);
-	//	getGoogleCalendarList(req, res);
 
 	res.render('events', {
 		title: "Authorized with Google!"
 	});
 });
 
+//testing AJAX
+app.get('/test', function(req, res) {
+	res.render('test');
+});
 
 var port = process.env.PORT || 80;
 app.listen(port, function(){
@@ -139,11 +142,9 @@ var getGoogleAccessToken = function(req, res) {
 				if (error) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {
-					console.log("data: "+data);
-					console.log("results: "+results);
+					client.set(req.sessionID+':google:calendarList', data, redis.print);
 				}
 			});
-
 		});
 	};
 
