@@ -1,37 +1,34 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
-		<script type="text/javascript" charset="utf-8">
-			$.ajaxSetup ({
-				cache: false
-			});
-			
-//		var ajax_load = "<img src='img/load.gif' alt='loading...' />";
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
+<script type="text/javascript" charset="utf-8">
+	$.ajaxSetup ({
+		cache: false
+	});
+	
+//var ajax_load = "<img src='img/load.gif' alt='loading...' />";
 
-			//  load() functions  
-			var loadUrl = "/test";  
-			$("#load_basic").click(function(){  
-				$("#result").load(loadUrl);  
-			});
-		</script>
-  </head>
-  <body>
-		<div id="main" class="centered">
-			<div id="header" class="centered">
-				<h1>Welcome</h1>
-			</div>
-			<div id="content" class="centered">
-				<div id="load" class="centered">
-					LOAD THAT SHIT
-				</div>
-				<div id="results" class="centered">
-					
-				</div>
-			</div>
+	//  load() functions  
+	var loadUrl = "/test";  
+	$("#load_basic").click(function(){  
+		$("#result").load(loadUrl);  
+	});
+</script>
+</head>
+<body>
+<div id="main" class="centered">
+	<div id="header" class="centered">
+		<h1>Welcome</h1>
+	</div>
+	<div id="content" class="centered">
+		<div id="load" class="centered">
+			LOAD THAT SHIT
 		</div>
-		<a href="/getGoogleRequestToken">Click to sign in with Google Calendar</a>
-  </body>
-</html>
+		<div id="results" class="centered">
+			
+		</div>
+	</div>
+</div>
+<a href="/getGoogleRequestToken">Click to sign in with Google Calendar</a>
+</body>
