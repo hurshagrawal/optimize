@@ -79,7 +79,7 @@ app.get('/googleAuthSuccess', function(req, res) {
 
 //testing AJAX
 app.get('/test', function(req, res) {
-	res.render('test');
+	res.render('test', {});
 });
 
 var port = process.env.PORT || 80;
