@@ -3,18 +3,13 @@
   <link rel='stylesheet' href='/stylesheets/style.css' />
 	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
 	<script type="text/javascript" charset="utf-8">
-	$.ajaxSetup ({
-		cache: false
-	});
 	
-//var ajax_load = "<img src='img/load.gif' alt='loading...' />";
-
-	//  load() functions  
-	var loadUrl = "/test";  
-	$("#load").click(function() {  
-		$("#results").load(loadUrl);  
-	});
-</script>
+		var loadUrl = "/test";  
+		$("#content").click(function() {  
+			$("#results").load(loadUrl);  
+		});
+		
+	</script>
 </head>
 <body>
 <div id="main" class="centered">
