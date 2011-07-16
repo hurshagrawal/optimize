@@ -13,6 +13,12 @@ body {
 	outline-width: 2px;
 }
 
+#load {
+	width: 200px;
+	height: 50px;
+	background-color: lightgreen;
+}
+
 .centered {
 	width: 600px;
 	margin-left: auto;
