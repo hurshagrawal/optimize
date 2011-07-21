@@ -142,7 +142,6 @@ var getGoogleAccessToken = function(req, res, callback) {
 					//console.log(oauth_access_token_secret);
 					client.set(req.sessionID+':google:accessToken', oauth_access_token, redis.print);
 					client.set(req.sessionID+':google:accessTokenSecret', oauth_access_token_secret, redis.print);
-					console.log("2");
 					if (typeof callback == "function") callback();
 				}
 			});
