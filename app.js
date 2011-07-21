@@ -84,10 +84,10 @@ app.get('/googleAuthSuccess', function(req, res) {
 				function(err, replies) {
 					console.log("6");
 					res.render('events', {
-						list: replies[0];
-					}
-				)}
-		)}
+						list: replies[0]
+					});
+				});
+		}
 	);
 
 	
