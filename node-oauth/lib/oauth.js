@@ -289,7 +289,7 @@ exports.OAuth.prototype._prepareParameters= function( oauth_token, oauth_token_s
 
 exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_token_secret, method, url, extra_params, post_body, post_content_type,  callback ) {
 	var orderedParameters= this._prepareParameters(oauth_token, oauth_token_secret, method, url, extra_params);
-
+	console.log("secure request performed");
 	if( !post_content_type ) {
 		post_content_type= "application/x-www-form-urlencoded";
 	}
@@ -344,9 +344,8 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 	if( callback ) {
 		var data=""; 
 		var self= this;
-		console.log("got here");
+		console.log("CALLBACK CALLED in oauth");
 		request.on('response', function (response) {
-			console.log("got response");
 			response.setEncoding('utf8');
 			response.on('data', function (chunk) {
 				data+=chunk;
