@@ -349,7 +349,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 			response.on('data', function (chunk) {
 				data+=chunk;
 			});
-			response.on('data', function () {
+			response.on('data', function () { //on end doesn't work properly - changed to on 'data'
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
 					callback(null, data, response);
 				} else {
