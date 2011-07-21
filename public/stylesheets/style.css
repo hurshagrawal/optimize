@@ -1,25 +1,26 @@
 body {
-	padding: 50px;
+	padding: 5px;
 	font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 #main	{
 	text-align: center;
-	width: 800px;
+	width: 950px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 #header {
-	width: 800px;
-	height: 100px;
-	padding: 5px;
+	width: 950px;
+	height: 80px;
+	margin: 5px;
 	font-size: 40px;
 	background-color: lightblue;
 }
 
 #content {
-	width: 800px;
-	height: 400px;
+	width: 950px;
+	height: 500px;
+	margin: 5px;
 	background-color: lightgreen;
 }
