@@ -70,7 +70,8 @@ app.get('/googleAuthSuccess', function(req, res) {
 	}
 
 	client.set(req.sessionID + ':google:verifier', qs, redis.print);
-
+	
+	console.log("first");
 	step(
 		function authorizeWithGoogle() {
 			getGoogleAccessToken(req, res, this);
