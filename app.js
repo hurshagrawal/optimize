@@ -98,7 +98,7 @@ app.get('/splash', function(req, res) {
 });
 
 app.get('/calendars'), function(req, res) {
-	res.render('calendars', {})''
+	res.render('calendars', {});
 });
 
 //Deploy server
