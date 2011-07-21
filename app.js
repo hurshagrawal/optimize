@@ -78,14 +78,10 @@ app.get('/googleAuthSuccess', function(req, res) {
 		function getGoogleCalendarData() {
 			getGoogleCalendarList(req, res, this);
 		},
-		function returnListToClient() {
-			client.mget(req.sessionID+':google:calendarList',
-				function(err, replies) {
-					res.render('index', {
-						page: "calendars",
-						list: JSON.parse(replies[0])
-					});
-				});
+		function returnToWebapp() {
+			res.render('index', {
+				page: "calendars"
+			});
 		}
 	);
 
@@ -97,7 +93,12 @@ app.get('/splash', function(req, res) {
 });
 
 app.get('/calendars', function(req, res) {
-	res.render('calendars', {});
+	client.mget(req.sessionID+':google:calendarList',
+	function(err, replies) {
+		res.render('calendars', {
+			list: JSON.parse(replies[0])
+		});
+	});
 });
 
 //Deploy server
