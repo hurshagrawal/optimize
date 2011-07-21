@@ -350,8 +350,8 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 			response.setEncoding('utf8');
 			response.on('data', function (chunk) {
 				data+=chunk;
-			});
-			response.on('data', function () { //on end doesn't work properly - changed to on 'data'
+			// });
+			// response.on('data', function () { //on end doesn't work properly - changed to on 'data'
 				console.log("Response status code: "+ response.statusCode);
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
 					callback(null, data, response);
