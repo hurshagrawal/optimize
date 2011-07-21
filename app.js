@@ -79,14 +79,17 @@ app.get('/googleAuthSuccess', function(req, res) {
 			getGoogleCalendarList(req, res, this);
 		},
 		function returnListToClient() {
+			console.log("5");
 			client.mget(req.sessionID+':google:calendarList',
 				function(err, replies) {
+					console.log("6");
 					res.render('events', {
+						console.log("7");
 						list: replies[0];
 					}
 				)}
 		)}
-	)
+	);
 
 	
 	// getGoogleAccessToken(req, res, _.bind(function() {
@@ -130,6 +133,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 	req.sessionID + ':google:requestTokenSecret', 
 	req.sessionID + ':google:verifier', 
 	function(err, replies) {
+		console.log("1");
 		//			console.log(replies[0]); //request token
 		//			console.log(replies[1]); //request token secret
 		//			console.log(replies[2]); //verifier
@@ -143,6 +147,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 					client.set(req.sessionID+':google:accessToken', oauth_access_token, redis.print);
 					client.set(req.sessionID+':google:accessTokenSecret', oauth_access_token_secret, redis.print);
 					
+					console.log("2");
 					if (typeof callback == "function") callback();
 				}
 			});
@@ -153,6 +158,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 		client.mget(req.sessionID + ':google:accessToken', 
 		req.sessionID + ':google:accessTokenSecret', 
 		function(err, replies) {
+			console.log("3");
 			//console.log("access token: "+replies[0]); //access token
 			//console.log("access token secret: "+replies[1]); //access token secret
 
@@ -163,7 +169,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {
 					client.set(req.sessionID+':google:calendarList', data, redis.print);
-					
+					console.log("4");
 					if (typeof callback == "function") callback();
 				}
 			});
