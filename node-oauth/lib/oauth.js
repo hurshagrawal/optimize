@@ -289,7 +289,7 @@ exports.OAuth.prototype._prepareParameters= function( oauth_token, oauth_token_s
 
 exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_token_secret, method, url, extra_params, post_body, post_content_type,  callback ) {
 	var orderedParameters= this._prepareParameters(oauth_token, oauth_token_secret, method, url, extra_params);
-	console.log("secure request performed");
+
 	if( !post_content_type ) {
 		post_content_type= "application/x-www-form-urlencoded";
 	}
@@ -344,7 +344,6 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 	if( callback ) {
 		var data=""; 
 		var self= this;
-		console.log("CALLBACK CALLED in oauth");
 		request.on('response', function (response) {
 			response.setEncoding('utf8');
 			response.on('data', function (chunk) {
@@ -355,6 +354,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 					callback(null, data, response);
 				} else {
 					// Follow 302 redirects with Location HTTP header
+					console.log("REDIRECT HAPPENZ");
 					if(response.statusCode == 302 && response.headers && response.headers.location) {
 						self._performSecureRequest( oauth_token, oauth_token_secret, method, response.headers.location, extra_params, post_body, post_content_type,  callback);
 					}
