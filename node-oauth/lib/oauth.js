@@ -350,6 +350,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 				data+=chunk;
 			});
 			response.on('data', function () { //on end doesn't work properly - changed to on 'data'
+				console.log("Response status code: "+ response.statusCode);
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
 					callback(null, data, response);
 				} else {
@@ -364,7 +365,10 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 				}
 			});
 		});
-
+		
+		request.on("error", function (whatever) {
+			console.log("THIS ERROR THING IS BEING CALLED TOO DUDE");
+		});
 		request.on("error", callback);
 
 		if( (method == "POST" || method =="PUT") && post_body != null && post_body != "" ) {
