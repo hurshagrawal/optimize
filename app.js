@@ -82,7 +82,7 @@ app.get('/googleAuthSuccess', function(req, res) {
 			client.mget(req.sessionID+':google:calendarList',
 				function(err, replies) {
 					res.render('events', {
-						list: replies[0].split(":@#$:");
+						list: JSON.parse(replies[0])
 					});
 				});
 		}
@@ -162,12 +162,11 @@ var getGoogleAccessToken = function(req, res, callback) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {
 					var calendarList = JSON.parse(data).data.items;
-					var calendarStr = "";
 					for (var i=0; i<calendarList.length; i++) {
-						calendarStr = calendarStr+calendarList[i].title+":@#$:";
+						calendarList[i] = calendarList[i].title;
 					}
 					
-					client.set(req.sessionID+':google:calendarList', calendarStr, redis.print);
+					client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
 					if (typeof callback == "function") callback();
 				}
 			});
