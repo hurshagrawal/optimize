@@ -4,26 +4,17 @@
 	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
 	<script type="text/javascript" charset="utf-8">
 		$(function() {
-			var loadUrl = "/test";  
-			$("#load").click(function() {
-				$("#results").load(loadUrl);  
-			});
+			var loadUrl = "/" + <%= page %>;  
+			$("#content").load(loadUrl);  
 		});
 	</script>
 </head>
 <body>
-<div id="main" class="centered">
-	<div id="header" class="centered">
-		<h1>Welcome</h1>
+<div id="main">
+	<div id="header">
+		<p><%= title %></p>
 	</div>
-	<div id="content" class="centered">
-		<div id="load">
-			LOAD THAT SHIT
-		</div>
-		<div id="results" class="centered">
-			Here
-		</div>
+	<div id="content">
 	</div>
 </div>
-<a href="/getGoogleRequestToken">Click to sign in with Google Calendar</a>
 </body>

@@ -1,28 +1,25 @@
 body {
 	padding: 50px;
-	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 #main	{
 	text-align: center;
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-#header, #load {
-	padding: 20px 0;
-	outline-style: solid;
-	outline-width: 2px;
+#header {
+	width: 800px;
+	height: 100px;
+	padding: 5px;
+	font-size: 40px;
+	background-color: lightblue;
 }
 
-#load {
-	width: 200px;
-	height: 50px;
+#content {
+	width: 800px;
+	height: 400px;
 	background-color: lightgreen;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.centered {
-	width: 600px;
-	margin-left: auto;
-	margin-right: auto;
 }

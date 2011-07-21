@@ -56,7 +56,8 @@ app.error(function(err, req, res, next){
 // Routes
 app.get('/', function(req, res){
 	res.render('index', {
-		title: "Welcome"
+		page: "splash.ejs",
+		title: "Optimize Your Night"
 	});
 });
 
@@ -81,7 +82,8 @@ app.get('/googleAuthSuccess', function(req, res) {
 		function returnListToClient() {
 			client.mget(req.sessionID+':google:calendarList',
 				function(err, replies) {
-					res.render('events', {
+					res.render('index', {
+						page: "events.ejs",
 						list: JSON.parse(replies[0])
 					});
 				});
