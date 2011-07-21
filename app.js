@@ -84,7 +84,6 @@ app.get('/googleAuthSuccess', function(req, res) {
 				function(err, replies) {
 					console.log("6");
 					res.render('events', {
-						console.log("7");
 						list: replies[0];
 					}
 				)}
