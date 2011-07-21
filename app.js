@@ -163,9 +163,11 @@ var getGoogleAccessToken = function(req, res, callback) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {
 					var calendarList = JSON.parse(data).data.items;
-					console.log(calendarList);
+					for (var i=0; i<calendarList.length; i++) {
+						calendarList[i] = calendarList[i].title;
+					}
 					
-					client.set(req.sessionID+':google:calendarList', data, redis.print);
+					client.set(req.sessionID+':google:calendarList', calendarList, redis.print);
 					if (typeof callback == "function") callback();
 				}
 			});
