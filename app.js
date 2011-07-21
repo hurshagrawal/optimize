@@ -97,7 +97,7 @@ app.get('/splash', function(req, res) {
 	res.render('splash', {});
 });
 
-app.get('/calendars'), function(req, res) {
+app.get('/calendars', function(req, res) {
 	res.render('calendars', {});
 });
 
