@@ -353,7 +353,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 				console.log("a");
 			});
 			console.log("b");
-			response.on('end', function () {
+			response.on('finish', function () {
 				console.log("c");
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
 					console.log("d");
