@@ -353,7 +353,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 				console.log("a");
 			});
 			console.log("b");
-			 response.addListener("end", function () {
+			response.on('end', function () {
 				console.log("c");
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
 					console.log("d");
@@ -370,7 +370,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 				}
 			});
 		});
-		
+
 		request.on("error", callback);
 
 		if( (method == "POST" || method =="PUT") && post_body != null && post_body != "" ) {
