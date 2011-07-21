@@ -340,13 +340,10 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 	else {
 		request= this._createClient(parsedUrl.port, parsedUrl.hostname, method, path, headers);
 	}
-	console.log("outside callback");
 	if( callback ) {
 		var data=""; 
 		var self= this;
-		console.log("outside response");
 		request.on('response', function (response) {
-			console.log("inside response");
 			response.setEncoding('utf8');
 			response.on('data', function (chunk) {
 				data+=chunk;
