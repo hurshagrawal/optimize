@@ -366,9 +366,6 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 			});
 		});
 		
-		request.on("error", function (whatever) {
-			console.log("THIS ERROR THING IS BEING CALLED TOO DUDE");
-		});
 		request.on("error", callback);
 
 		if( (method == "POST" || method =="PUT") && post_body != null && post_body != "" ) {
@@ -417,6 +414,7 @@ exports.OAuth.prototype.delete= function(url, oauth_token, oauth_token_secret, c
 }
 
 exports.OAuth.prototype.get= function(url, oauth_token, oauth_token_secret, callback) {
+	console.log("get called!");
 	return this._performSecureRequest( oauth_token, oauth_token_secret, "GET", url, null, "", null, callback );
 }
 
