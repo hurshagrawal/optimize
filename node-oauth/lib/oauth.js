@@ -349,14 +349,20 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 			console.log("inside response");
 			response.setEncoding('utf8');
 			response.on('data', function (chunk) {
-				console.log("------chunk------ :"+chunk);
 				data+=chunk;
-				console.log("Response status code: "+ response.statusCode);
+				console.log("a");
+			});
+			console.log("b");
+			response.on('end', function () {
+				console.log("c");
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
+					console.log("d");
 					callback(null, data, response);
 				} else {
+					console.log("e");
 					// Follow 302 redirects with Location HTTP header
 					if(response.statusCode == 302 && response.headers && response.headers.location) {
+						console.log("f");
 						self._performSecureRequest( oauth_token, oauth_token_secret, method, response.headers.location, extra_params, post_body, post_content_type,  callback);
 					} else {
 						callback({ statusCode: response.statusCode, data: data }, data, response);
