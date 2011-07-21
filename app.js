@@ -79,10 +79,8 @@ app.get('/googleAuthSuccess', function(req, res) {
 			getGoogleCalendarList(req, res, this);
 		},
 		function returnListToClient() {
-			console.log("5");
 			client.mget(req.sessionID+':google:calendarList',
 				function(err, replies) {
-					console.log("6");
 					res.render('events', {
 						list: replies[0]
 					});
@@ -132,7 +130,6 @@ var getGoogleAccessToken = function(req, res, callback) {
 	req.sessionID + ':google:requestTokenSecret', 
 	req.sessionID + ':google:verifier', 
 	function(err, replies) {
-		console.log("1");
 		//			console.log(replies[0]); //request token
 		//			console.log(replies[1]); //request token secret
 		//			console.log(replies[2]); //verifier
@@ -156,7 +153,6 @@ var getGoogleAccessToken = function(req, res, callback) {
 		client.mget(req.sessionID + ':google:accessToken', 
 		req.sessionID + ':google:accessTokenSecret', 
 		function(err, replies) {
-			console.log("3");
 			//console.log("access token: "+replies[0]); //access token
 			//console.log("access token secret: "+replies[1]); //access token secret
 
@@ -166,9 +162,10 @@ var getGoogleAccessToken = function(req, res, callback) {
 				if (error) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {
+					var calendarList = JSON.parse(data).data.items;
+					console.log(calendarList);
+					
 					client.set(req.sessionID+':google:calendarList', data, redis.print);
-					console.log("4");
-					console.log("data: " + data);
 					if (typeof callback == "function") callback();
 				}
 			});
