@@ -347,25 +347,36 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 			response.setEncoding('utf8');
 			response.on('data', function (chunk) {
 				data+=chunk;
-				console.log("a");
 			});
-			console.log("b");
+			
+			
 			response.on('end', function () {
-				console.log("c");
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
-					console.log("d");
 					callback(null, data, response);
 				} else {
-					console.log("e");
 					// Follow 302 redirects with Location HTTP header
 					if(response.statusCode == 302 && response.headers && response.headers.location) {
-						console.log("f");
 						self._performSecureRequest( oauth_token, oauth_token_secret, method, response.headers.location, extra_params, post_body, post_content_type,  callback);
 					} else {
 						callback({ statusCode: response.statusCode, data: data }, data, response);
 					}
 				}
 			});
+			
+			response.on('close', function () {
+				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
+					callback(null, data, response);
+				} else {
+					// Follow 302 redirects with Location HTTP header
+					if(response.statusCode == 302 && response.headers && response.headers.location) {
+						self._performSecureRequest( oauth_token, oauth_token_secret, method, response.headers.location, extra_params, post_body, post_content_type,  callback);
+					} else {
+						callback({ statusCode: response.statusCode, data: data }, data, response);
+					}
+				}
+			});
+			
+			
 		});
 
 		request.on("error", callback);
