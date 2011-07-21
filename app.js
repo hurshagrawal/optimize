@@ -56,7 +56,7 @@ app.error(function(err, req, res, next){
 // Routes
 app.get('/', function(req, res){
 	res.render('index', {
-		page: "splash.ejs",
+		page: "splash",
 		title: "Optimize Your Night"
 	});
 });
@@ -90,17 +90,11 @@ app.get('/googleAuthSuccess', function(req, res) {
 		}
 	);
 
-	
-	// getGoogleAccessToken(req, res, _.bind(function() {
-	// 	this.render('events', {
-	// 		title: "Authorized with Google!"
-	// 	});
-	// }, res));
 });
 
-//testing AJAX
-app.get('/test', function(req, res) {
-	res.render('test', {});
+//AJAX Routes
+app.get('/splash', function(req, res) {
+	res.render('splash', {});
 });
 
 var port = process.env.PORT || 80;
