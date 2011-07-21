@@ -83,7 +83,7 @@ app.get('/googleAuthSuccess', function(req, res) {
 			client.mget(req.sessionID+':google:calendarList',
 				function(err, replies) {
 					res.render('index', {
-						page: "events.ejs",
+						page: "calendars",
 						list: JSON.parse(replies[0])
 					});
 				});
@@ -97,11 +97,18 @@ app.get('/splash', function(req, res) {
 	res.render('splash', {});
 });
 
+app.get('/calendars'), function(req, res) {
+	res.render('calendars', {})''
+});
+
+//Deploy server
+
 var port = process.env.PORT || 80;
 app.listen(port, function(){
 	console.log("Listening on " + port);
 });
 
+//Helper functions
 
 var getGoogleRequestToken = function(req, res) {
 	googleoa.getOAuthRequestToken({"scope": "http://www.google.com/calendar/feeds",
