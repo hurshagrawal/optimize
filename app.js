@@ -132,6 +132,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 	req.sessionID + ':google:requestTokenSecret', 
 	req.sessionID + ':google:verifier', 
 	function(err, replies) {
+		console.log("1");
 		//			console.log(replies[0]); //request token
 		//			console.log(replies[1]); //request token secret
 		//			console.log(replies[2]); //verifier
@@ -144,7 +145,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 					//console.log(oauth_access_token_secret);
 					client.set(req.sessionID+':google:accessToken', oauth_access_token, redis.print);
 					client.set(req.sessionID+':google:accessTokenSecret', oauth_access_token_secret, redis.print);
-					
+					console.log("2");
 					if (typeof callback == "function") callback();
 				}
 			});
