@@ -340,11 +340,13 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 	else {
 		request= this._createClient(parsedUrl.port, parsedUrl.hostname, method, path, headers);
 	}
-
+	console.log("outside callback");
 	if( callback ) {
 		var data=""; 
 		var self= this;
+		console.log("outside response");
 		request.on('response', function (response) {
+			console.log("inside response");
 			response.setEncoding('utf8');
 			response.on('data', function (chunk) {
 				data+=chunk;
@@ -414,7 +416,6 @@ exports.OAuth.prototype.delete= function(url, oauth_token, oauth_token_secret, c
 }
 
 exports.OAuth.prototype.get= function(url, oauth_token, oauth_token_secret, callback) {
-	console.log("get called!");
 	return this._performSecureRequest( oauth_token, oauth_token_secret, "GET", url, null, "", null, callback );
 }
 
