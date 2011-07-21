@@ -84,7 +84,6 @@ app.get('/googleAuthSuccess', function(req, res) {
 			client.mget(req.sessionID+':google:calendarList',
 				function(err, replies) {
 					console.log("6");
-					console.log(replies[0]);
 					res.render('events', {
 						list: replies[0]
 					});
@@ -171,7 +170,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 				} else {
 					client.set(req.sessionID+':google:calendarList', data, redis.print);
 					console.log("4");
-					//console.log("data: " + data);
+					console.log("data: " + data);
 					if (typeof callback == "function") callback();
 				}
 			});
