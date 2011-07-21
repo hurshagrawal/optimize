@@ -344,23 +344,22 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 	if( callback ) {
 		var data=""; 
 		var self= this;
+		console.log("got here");
 		request.on('response', function (response) {
+			console.log("got response");
 			response.setEncoding('utf8');
 			response.on('data', function (chunk) {
 				data+=chunk;
 			});
 			response.on('data', function () { //on end doesn't work properly - changed to on 'data'
 				if ( response.statusCode >= 200 && response.statusCode <= 299 ) {
-					console.log("going here 1");
 					callback(null, data, response);
 				} else {
 					// Follow 302 redirects with Location HTTP header
 					if(response.statusCode == 302 && response.headers && response.headers.location) {
-						console.log("going here 2");
 						self._performSecureRequest( oauth_token, oauth_token_secret, method, response.headers.location, extra_params, post_body, post_content_type,  callback);
 					}
 					else {
-						console.log("going here 3");
 						callback({ statusCode: response.statusCode, data: data }, data, response);
 					}
 				}

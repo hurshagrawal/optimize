@@ -171,8 +171,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 				} else {
 					client.set(req.sessionID+':google:calendarList', data, redis.print);
 					console.log("4");
-					console.log("result status code:"+results.statusCode);
-					console.log("data: " + data);
+					//console.log("data: " + data);
 					if (typeof callback == "function") callback();
 				}
 			});
