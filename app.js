@@ -56,8 +56,7 @@ app.error(function(err, req, res, next){
 // Routes
 app.get('/', function(req, res){
 	res.render('index', {
-		page: "splash",
-		title: "Optimize Your Night"
+		page: "splash"
 	});
 });
 
