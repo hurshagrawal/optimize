@@ -22,7 +22,7 @@
 			<select name="fromDay">
 			<% for(var i=1; i<=31; i++) { %>
 				<option value="<%= i %>" 
-					<%= if (d.getDate() == i) { %>
+					<% if (d.getDate() == i) { %>
 						<%= 'selected="selected"' %>
 					<% } %> >
 					<%= i %>
@@ -32,7 +32,7 @@
 			<select name="fromYear">
 			<% for(var i=2000; i<=2020; i++) { %>
 				<option value="<%= i %>" 
-					<%= if (d.getFullYear() == i) { %>
+					<% if (d.getFullYear() == i) { %>
 						<%= 'selected="selected"' %>
 					<% } %> >
 					<%= i %>
