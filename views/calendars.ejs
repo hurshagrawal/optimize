@@ -39,6 +39,16 @@
 				</option>
 			<% } %>
 			</select>
+			<select name="fromHour">
+			<% for(var i=0; i<=23; i++) { %>
+				<option value="<%= i %>" 
+					<% if (d.getHours() === i) { %>
+						<%= 'selected="selected"' %>
+					<% } %> >
+					<%= time[i] %>
+				</option>
+			<% } %>
+			</select>
 		</div>
 		<div id="toDate">
 			<% var d = new Date(); %>
@@ -70,6 +80,16 @@
 						<%= 'selected="selected"' %>
 					<% } %> >
 					<%= i %>
+				</option>
+			<% } %>
+			</select>
+			<select name="toHour">
+			<% for(var i=0; i<=23; i++) { %>
+				<option value="<%= i %>" 
+					<% if (d.getHours() === i) { %>
+						<%= 'selected="selected"' %>
+					<% } %> >
+					<%= time[i] %>
 				</option>
 			<% } %>
 			</select>

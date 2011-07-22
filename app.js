@@ -93,24 +93,23 @@ app.post('/googleEventFetch', function(req, res) {
 	fromDate = new Date();
 	toDate = new Date();
 	
-//	fromDate.setDate = 
-	console.log(typeof(req.body.fromDay));
-	// console.log(req.body.fromMonth);
-	// console.log(req.body.fromYear);
-	// console.log(req.body.toDay);
-	// console.log(req.body.toMonth);
-	// console.log(req.body.toYear);
+	fromDate.setDate(parseInt(req.body.fromDay));
+	fromDate.setMonth(parseInt(req.body.fromMonth));
+	fromDate.setFullYear(parseInt(req.body.fromYear));
+	toDate.setDate(parseInt(req.body.toDay));
+	toDate.setMonth(parseInt(req.body.toMonth));
+	toDate.setFullYear(parseInt(req.body.toYear));
 	
-	// step(
-	// 	function getEventsFromParticularCalendars() {
-	// 		getGoogleEventsDate(req, res, fromDate, toDate, this);
-	// 	},
-	// 	function returnToWebapp() {
-	// 		res.render('index', {
-	// 			page: "calendars"
-	// 		});
-	// 	}
-	// );
+	step(
+		function getEventsFromParticularCalendars() {
+			getGoogleEventsDate(req, res, fromDate, toDate, this);
+		},
+		function returnToWebapp() {
+			res.render('index', {
+				page: "calendars"
+			});
+		}
+	);
 
 });
 
@@ -120,9 +119,19 @@ app.get('/splash', function(req, res) {
 });
 
 app.get('/calendars', function(req, res) {
+	var timeArray = new Array();
+	timeArray.push("12AM");
+	for (var i=1; i<=11; i++) {
+		timeArray.push(i+"AM");
+	}
+	timeArray.push("12PM");
+	for (var i=1; i<=11; i++) {
+		timeArray.push(i+"PM");
+	}
 	client.mget(req.sessionID+':google:calendarList',
 	function(err, replies) {
 		res.render('calendars', {
+			time: timeArray,
 			list: JSON.parse(replies[0])
 		});
 	});
