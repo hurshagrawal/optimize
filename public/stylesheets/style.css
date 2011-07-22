@@ -23,5 +23,6 @@ body {
 	width: 950px;
 	height: 500px;
 	margin: 5px;
+	list-style-type: none;
 	background-color: lightgreen;
 }

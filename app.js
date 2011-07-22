@@ -165,7 +165,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 					//console.log(oauth_access_token_secret);
 					client.set(req.sessionID+':google:accessToken', oauth_access_token, redis.print);
 					client.set(req.sessionID+':google:accessTokenSecret', oauth_access_token_secret, redis.print);
-					if (typeof callback == "function") callback();
+					if (typeof callback === "function") callback();
 				}
 			});
 		});
@@ -189,7 +189,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 					console.log(calendarList);
 
 					client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
-					if (typeof callback == "function") callback();
+					if (typeof callback === "function") callback();
 				}
 			});
 		});
@@ -211,7 +211,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 					console.log(JSON.parse(data));
 
 					//client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
-					if (typeof callback == "function") callback();
+					if (typeof callback === "function") callback();
 				}
 			});
 		});
