@@ -119,15 +119,8 @@ app.get('/splash', function(req, res) {
 });
 
 app.get('/calendars', function(req, res) {
-	var timeArray = new Array();
-	timeArray.push("12AM");
-	for (var i=1; i<=11; i++) {
-		timeArray.push(i+"AM");
-	}
-	timeArray.push("12PM");
-	for (var i=1; i<=11; i++) {
-		timeArray.push(i+"PM");
-	}
+	var timeArray = makeTimeArray();
+	
 	client.mget(req.sessionID+':google:calendarList',
 	function(err, replies) {
 		res.render('calendars', {
@@ -248,3 +241,18 @@ var getGoogleAccessToken = function(req, res, callback) {
 			return n;
 		}
 	};
+	
+	var makeTimeArray = function() {
+		timeArray = new Array();
+		
+		timeArray.push("12AM");
+		for (var i=1; i<=11; i++) {
+			timeArray.push(i+"AM");
+		}
+		
+		timeArray.push("12PM");
+		for (var i=1; i<=11; i++) {
+			timeArray.push(i+"PM");
+		}
+		return timeArray;
+	}
