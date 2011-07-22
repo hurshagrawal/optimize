@@ -1,6 +1,6 @@
 <div id="calendars">
 	<h1>Which calendars do you want to get events from?</h1>
-	<form action="calendars_submit" method="post" accept-charset="utf-8">
+	<form action="/googleEventFetch" method="post" accept-charset="utf-8">
 		<ul>
 			<% for(var i=0; i<list.length; i++) { %>
 				<li><input type="checkbox" name="calendar" value="<%= list[i].title %>" /> <%= list[i].title %></li>

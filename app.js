@@ -88,22 +88,25 @@ app.get('/googleAuthSuccess', function(req, res) {
 });
 
 app.get('/googleEventFetch', function(req, res) {
-
-	var d = new Date();
-	d.setDate(d.getDate() - 1);
-	var e = new Date();
-	e.setDate(e.getDate() + 1);
-
-	step(
-		function getEventsFromParticularCalendars() {
-			getGoogleEventsDate(req, res, d, e, this);
-		},
-		function returnToWebapp() {
-			res.render('index', {
-				page: "calendars"
-			});
-		}
-	);
+	
+	console.log(req.body.calendar);
+	console.log(req.body.fromDay);
+	console.log(req.body.fromMonth);
+	console.log(req.body.fromYear);
+	console.log(req.body.toDay);
+	console.log(req.body.toMonth);
+	console.log(req.body.toYear);
+	
+	// step(
+	// 	function getEventsFromParticularCalendars() {
+	// 		getGoogleEventsDate(req, res, d, e, this);
+	// 	},
+	// 	function returnToWebapp() {
+	// 		res.render('index', {
+	// 			page: "calendars"
+	// 		});
+	// 	}
+	// );
 
 });
 
