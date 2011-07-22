@@ -3,14 +3,14 @@
 */
 
 var express 	= require('express'),
-sys			= require('sys'),
-url			= require('url'),
-http		= require('http'),
-step		= require('step'),
-oauth		= require(__dirname + '/node-oauth/lib/oauth').OAuth,
-redis		= require("redis"),
-client	= redis.createClient(),
-RedisStore 	= require('connect-redis')(express);
+sys				= require('sys'),
+url				= require('url'),
+http			= require('http'),
+step			= require('step'),
+oauth			= require(__dirname + '/node-oauth/lib/oauth').OAuth,
+redis			= require("redis"),
+client			= redis.createClient(),
+RedisStore 		= require('connect-redis')(express);
 
 var SERVERURL = "ec2-67-202-30-240.compute-1.amazonaws.com";
 client.on("error", function(err){
@@ -70,24 +70,37 @@ app.get('/googleAuthSuccess', function(req, res) {
 	}
 
 	client.set(req.sessionID + ':google:verifier', qs, redis.print);
-	
-	
-	var d = new Date();
-	d.setDate(d.getDate() - 1);
-	var e = new Date();
-	e.setDate(e.getDate() + 1);
+
 	step(
 		function authorizeWithGoogle() {
 			getGoogleAccessToken(req, res, this);
 		},
 		function getGoogleCalendarData() {
-			//getGoogleCalendarList(req, res, this);
+			getGoogleCalendarList(req, res, this);
+		},
+		function returnToWebapp() {
+			res.render('index', {
+				page: "calendars"
+			});
+		}
+	);
+
+});
+
+app.get('/googleEventFetch', function(req, res) {
+
+	var d = new Date();
+	d.setDate(d.getDate() - 1);
+	var e = new Date();
+	e.setDate(e.getDate() + 1);
+
+	step(
+		function getEventsFromParticularCalendars() {
 			getGoogleEventsDate(req, res, d, e, this);
 		},
 		function returnToWebapp() {
 			res.render('index', {
-				page: "splash"	//for testing
-				//page: "calendars"
+				page: "calendars"
 			});
 		}
 	);
@@ -99,14 +112,14 @@ app.get('/splash', function(req, res) {
 	res.render('splash', {});
 });
 
-// app.get('/calendars', function(req, res) {
-// 	client.mget(req.sessionID+':google:calendarList',
-// 	function(err, replies) {
-// 		res.render('calendars', {
-// 			list: JSON.parse(replies[0])
-// 		});
-// 	});
-// });
+app.get('/calendars', function(req, res) {
+	client.mget(req.sessionID+':google:calendarList',
+	function(err, replies) {
+		res.render('calendars', {
+			list: JSON.parse(replies[0])
+		});
+	});
+});
 
 //Deploy server
 
@@ -175,7 +188,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 					for (var i=0; i<calendarList.length; i++) {
 						calendarList[i] = calendarList[i].title;
 					}
-					
+
 					client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
 					if (typeof callback == "function") callback();
 				}
@@ -188,16 +201,16 @@ var getGoogleAccessToken = function(req, res, callback) {
 		req.sessionID + ':google:accessTokenSecret', 
 		function(err, replies) {
 
-				//date/times must be in "2006-03-24T23:59:59" format
+			//date/times must be in "2006-03-24T23:59:59" format
 			var requestURL = "https://www.google.com/calendar/feeds/default/private/full?start-min="
-				+ formatDate(startDate) + "&start-max=" + formatDate(endDate) + "&alt=jsonc";
+			+ formatDate(startDate) + "&start-max=" + formatDate(endDate) + "&alt=jsonc";
 
 			googleoa.get(requestURL, replies[0], replies[1], function(error, data, results) {
 				if (error) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {
 					console.log(JSON.parse(data));
-					
+
 					//client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
 					if (typeof callback == "function") callback();
 				}
@@ -207,10 +220,10 @@ var getGoogleAccessToken = function(req, res, callback) {
 
 	var formatDate = function(d) {
 		var date = d.getFullYear() + '-' + padNum(d.getMonth()) + '-' + padNum(d.getDate())
-			+ "T" + padNum(d.getHours()) + ":" + padNum(d.getMinutes()) + ":" + padNum(d.getSeconds());
+		+ "T" + padNum(d.getHours()) + ":" + padNum(d.getMinutes()) + ":" + padNum(d.getSeconds());
 		return date;
 	};
-	
+
 	var padNum = function(n) {
 		if (n < 10) {
 			return "0" + n;
