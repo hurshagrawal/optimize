@@ -19,6 +19,7 @@ body {
 }
 
 #content {
+	text-align: left;
 	width: 950px;
 	height: 500px;
 	margin: 5px;
