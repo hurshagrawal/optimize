@@ -89,17 +89,21 @@ app.get('/googleAuthSuccess', function(req, res) {
 
 app.post('/googleEventFetch', function(req, res) {
 	
-	console.log(req.body.calendar);
-	console.log(req.body.fromDay);
-	console.log(req.body.fromMonth);
-	console.log(req.body.fromYear);
-	console.log(req.body.toDay);
-	console.log(req.body.toMonth);
-	console.log(req.body.toYear);
+	// console.log(req.body.calendar);
+	fromDate = new Date();
+	toDate = new Date();
+	
+//	fromDate.setDate = 
+	console.log(typeof(req.body.fromDay));
+	// console.log(req.body.fromMonth);
+	// console.log(req.body.fromYear);
+	// console.log(req.body.toDay);
+	// console.log(req.body.toMonth);
+	// console.log(req.body.toYear);
 	
 	// step(
 	// 	function getEventsFromParticularCalendars() {
-	// 		getGoogleEventsDate(req, res, d, e, this);
+	// 		getGoogleEventsDate(req, res, fromDate, toDate, this);
 	// 	},
 	// 	function returnToWebapp() {
 	// 		res.render('index', {
@@ -219,14 +223,16 @@ var getGoogleAccessToken = function(req, res, callback) {
 			});
 		});
 	};
-
+	
+	//formats in "2006-03-24T23:59:59" format
 	var formatDate = function(d) {
 		var date = d.getFullYear() + '-' + padNum(d.getMonth()) + '-' + padNum(d.getDate())
 		+ "T" + padNum(d.getHours()) + ":" + padNum(d.getMinutes()) + ":" + padNum(d.getSeconds());
 		return date;
 	};
-
-	var padNum = function(n) {
+	
+	//adds leading 0s to single digits
+	var padNum = function(n) { 
 		if (n < 10) {
 			return "0" + n;
 		} else {
