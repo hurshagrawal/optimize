@@ -206,7 +206,15 @@ var getGoogleAccessToken = function(req, res, callback) {
 	};
 
 	var formatDate = function(d) {
-		var date = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate()
-			+ "T" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+		var date = d.getFullYear() + '-' + padNum(d.getMonth()) + '-' + padNum(d.getDate())
+			+ "T" + padNum(d.getHours()) + ":" + padNum(d.getMinutes()) + ":" + padNum(d.getSeconds());
 		return date;
+	};
+	
+	var padNum = function(n) {
+		if (n < 10) {
+			return "0" + n;
+		} else {
+			return n;
+		}
 	};
