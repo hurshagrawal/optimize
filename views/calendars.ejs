@@ -1,8 +1,49 @@
 <div id="calendars">
 	<h1>Which calendars do you want to get events from?</h1>
-	<ul>
-		<% for(var i=0; i<list.length;i++) { %>
-			<li><%= list[i].title %></li>
-		<% } %>
-	</ul>
+	<form action="calendars_submit" method="post" accept-charset="utf-8">
+		<ul>
+			<% for(var i=0; i<list.length; i++) { %>
+				<li><%= list[i].title %>: <input type="checkbox" name="calendar" value="<%= list[i].title %>" /></li>
+			<% } %>
+		</ul>
+		<div id="fromDate">
+			From:
+			<select name="fromMonth">
+			<% for(var i=1; i<=12; i++) { %>
+				<option value="<%= i %>"><%= i %></option>
+			<% } %>
+			</select>
+			<select name="fromDay">
+			<% for(var i=1; i<=31; i++) { %>
+				<option value="<%= i %>"><%= i %></option>
+			<% } %>
+			</select>
+			<select name="fromYear">
+			<% for(var i=2000; i<=2020; i++) { %>
+				<option value="<%= i %>"><%= i %></option>
+			<% } %>
+			</select>
+		</div>
+		<div id="toDate">
+			To:
+			<select name="toMonth">
+			<% for(var i=1; i<=12; i++) { %>
+				<option value="<%= i %>"><%= i %></option>
+			<% } %>
+			</select>
+			<select name="toDay">
+			<% for(var i=1; i<=31; i++) { %>
+				<option value="<%= i %>"><%= i %></option>
+			<% } %>
+			</select>
+			<select name="toYear">
+			<% for(var i=2000; i<=2020; i++) { %>
+				<option value="<%= i %>"><%= i %></option>
+			<% } %>
+			</select>
+		</div>
+
+		<p><input type="submit" value="Continue &rarr;"></p>
+	</form>
+
 </div>
