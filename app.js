@@ -184,6 +184,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 				if (error) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {
+					console.log(JSON.parse(data));
 					var calendarList = JSON.parse(data).data.items;
 					for (var i=0; i<calendarList.length; i++) {
 						calendarList[i] = calendarList[i].title;
