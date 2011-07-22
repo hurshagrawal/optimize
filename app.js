@@ -190,7 +190,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 
 				//date/times must be in "2006-03-24T23:59:59" format
 			var requestURL = "https://www.google.com/calendar/feeds/default/private/full?start-min="
-				+ formatDate(startDate) + "&start-max=" + formatDate(endDate) + "?alt=jsonc";
+				+ formatDate(startDate) + "&start-max=" + formatDate(endDate) + "&alt=jsonc";
 
 			googleoa.get(requestURL, replies[0], replies[1], function(error, data, results) {
 				if (error) {
