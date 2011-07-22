@@ -87,7 +87,7 @@ app.get('/googleAuthSuccess', function(req, res) {
 
 });
 
-app.get('/googleEventFetch', function(req, res) {
+app.post('/googleEventFetch', function(req, res) {
 	
 	console.log(req.body.calendar);
 	console.log(req.body.fromDay);
