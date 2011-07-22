@@ -3,7 +3,7 @@
 	<form action="calendars_submit" method="post" accept-charset="utf-8">
 		<ul>
 			<% for(var i=0; i<list.length; i++) { %>
-				<li><%= list[i].title %>: <input type="checkbox" name="calendar" value="<%= list[i].title %>" /></li>
+				<li><input type="checkbox" name="calendar" value="<%= list[i].title %>" /> <%= list[i].title %></li>
 			<% } %>
 		</ul>
 		<div id="fromDate">
@@ -41,20 +41,36 @@
 			</select>
 		</div>
 		<div id="toDate">
-			To:
+			<% var d = new Date(); %>
+			From:
 			<select name="toMonth">
 			<% for(var i=1; i<=12; i++) { %>
-				<option value="<%= i %>"><%= i %></option>
+				<option value="<%= i %>" 
+					<% if (d.getMonth() == i) { %>
+						<%= 'selected="selected"' %> 
+					<% } %> >
+					<%= i %>
+				</option>
 			<% } %>
 			</select>
 			<select name="toDay">
 			<% for(var i=1; i<=31; i++) { %>
-				<option value="<%= i %>"><%= i %></option>
+				<option value="<%= i %>" 
+					<% if (d.getDate() == i) { %>
+						<%= 'selected="selected"' %>
+					<% } %> >
+					<%= i %>
+				</option>
 			<% } %>
 			</select>
 			<select name="toYear">
 			<% for(var i=2000; i<=2020; i++) { %>
-				<option value="<%= i %>"><%= i %></option>
+				<option value="<%= i %>" 
+					<% if (d.getFullYear() == i) { %>
+						<%= 'selected="selected"' %>
+					<% } %> >
+					<%= i %>
+				</option>
 			<% } %>
 			</select>
 		</div>
