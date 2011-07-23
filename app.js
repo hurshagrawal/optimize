@@ -222,7 +222,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 	var getGoogleEventsDate = function(req, res, startDate, endDate, chosenCal, callback) {
 		client.mget(req.sessionID + ':google:accessToken', 
 		req.sessionID + ':google:accessTokenSecret', 
-		req.sessionID + ':google:calendarList'
+		req.sessionID + ':google:calendarList',
 		function(err, replies) {
 			
 			var calendarList
