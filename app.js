@@ -89,20 +89,36 @@ app.get('/googleAuthSuccess', function(req, res) {
 
 app.post('/googleEventFetch', function(req, res) {
 	
-	// console.log(req.body.calendar);
+	var chosenCals = req.body.calendar;
+	var calendarList;
+	
 	fromDate = new Date();
 	toDate = new Date();
 	
 	fromDate.setDate(parseInt(req.body.fromDay));
 	fromDate.setMonth(parseInt(req.body.fromMonth));
 	fromDate.setFullYear(parseInt(req.body.fromYear));
+	fromDate.setHours(parseInt(req.body.fromHour));
 	toDate.setDate(parseInt(req.body.toDay));
 	toDate.setMonth(parseInt(req.body.toMonth));
 	toDate.setFullYear(parseInt(req.body.toYear));
+	toDate.setHours(parseInt(req.body.toHour));
 	
 	step(
+		function getCalendarList() {
+			client.mget(req.sessionID+':google:calendarList',
+			function(err, replies) {
+				calendarList = JSON.parse(replies[0]);
+				console.log(calendarList);
+				this();
+			}
+		},
 		function getEventsFromParticularCalendars() {
-			getGoogleEventsDate(req, res, fromDate, toDate, this);
+			console.log("reached here");
+			// for (int i=0; i<chosenCals.length; i++ ) {
+			// 	
+			// 	getGoogleEventsDate(req, res, fromDate, toDate, , this);
+			// }
 		},
 		function returnToWebapp() {
 			res.render('index', {
@@ -203,11 +219,13 @@ var getGoogleAccessToken = function(req, res, callback) {
 		});
 	};
 
-	var getGoogleEventsDate = function(req, res, startDate, endDate, callback) {
+	var getGoogleEventsDate = function(req, res, startDate, endDate, chosenCal, callback) {
 		client.mget(req.sessionID + ':google:accessToken', 
 		req.sessionID + ':google:accessTokenSecret', 
+		req.sessionID + ':google:calendarList'
 		function(err, replies) {
-
+			
+			var calendarList
 			//date/times must be in "2006-03-24T23:59:59" format
 			var requestURL = "https://www.google.com/calendar/feeds/default/private/full?start-min="
 			+ formatDate(startDate) + "&start-max=" + formatDate(endDate) + "&alt=jsonc";
