@@ -109,7 +109,6 @@ app.post('/googleEventFetch', function(req, res) {
 			client.mget(req.sessionID+':google:calendarList',
 			function(err, replies) {
 				calendarList = JSON.parse(replies[0]);
-				console.log(calendarList);
 				this();
 			});
 		},
@@ -119,6 +118,7 @@ app.post('/googleEventFetch', function(req, res) {
 			// 	
 			// 	getGoogleEventsDate(req, res, fromDate, toDate, , this);
 			// }
+			this();
 		},
 		function returnToWebapp() {
 			res.render('index', {

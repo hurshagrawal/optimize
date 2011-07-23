@@ -60,7 +60,7 @@
 			<select name="toDay">
 			<% for(var i=1; i<=31; i++) { %>
 				<option value="<%= i %>" 
-					<% if (d.getDate() === i) { %>
+					<% if (d.getDate() === i-1) { %>
 						<%= 'selected="selected"' %>
 					<% } %> >
 					<%= i %>
@@ -70,7 +70,7 @@
 			<select name="toYear">
 			<% for(var i=2000; i<=2020; i++) { %>
 				<option value="<%= i %>" 
-					<% if (d.getFullYear() === i-1) { %>
+					<% if (d.getFullYear() === i) { %>
 						<%= 'selected="selected"' %>
 					<% } %> >
 					<%= i %>
