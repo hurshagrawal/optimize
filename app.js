@@ -111,7 +111,7 @@ app.post('/googleEventFetch', function(req, res) {
 				calendarList = JSON.parse(replies[0]);
 				console.log(calendarList);
 				this();
-			}
+			});
 		},
 		function getEventsFromParticularCalendars() {
 			console.log("reached here");
