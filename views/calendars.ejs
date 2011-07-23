@@ -43,6 +43,7 @@
 			<% for(var i=0; i<=23; i++) { %>
 				<option value="<%= i %>" 
 					<% if (d.getHours() === i) { %>
+						<% console.log(d.getHours()) %>
 						<%= 'selected="selected"' %>
 					<% } %> >
 					<%= time[i] %>
@@ -51,7 +52,7 @@
 			</select>
 		</div>
 		<div id="toDate">
-			To,:
+			To:
 			<select name="toMonth">
 			<% for(var i=1; i<=12; i++) { %>
 				<option value="<%= i %>" 

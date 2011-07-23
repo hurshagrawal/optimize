@@ -110,7 +110,6 @@ app.post('/googleEventFetch', function(req, res) {
 			});
 		}
 	);
-
 });
 
 //AJAX Routes
@@ -195,7 +194,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 				} else {
 					
 					var calendarList = JSON.parse(data).data.items;
-					console.log(calendarList);
+					//console.log(calendarList);
 
 					client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
 					if (typeof callback === "function") callback();
@@ -217,7 +216,7 @@ var getGoogleAccessToken = function(req, res, callback) {
 				if (error) {
 					sys.puts('error: ' + sys.inspect(error));
 				} else {
-					console.log(JSON.parse(data));
+					//console.log(JSON.parse(data));
 
 					//client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
 					if (typeof callback === "function") callback();
