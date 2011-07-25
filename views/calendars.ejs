@@ -38,6 +38,8 @@
 		$("select[name='fromHour']").val(d.getHours());
 		$("select[name='toHour']").val((d.getHours()+1)%24);
 
+		$("#loading").hide();
+		
 		$("#calendarList li").click(function() {
 			if (!$(this).hasClass("clicked")) {
 				$(this).addClass("clicked");
@@ -52,6 +54,25 @@
 			}
 			//console.log(selectedList);
 		});
+		
+		String.prototype.repeat = function(num) {
+			return new Array(isNaN(num)? 1 : ++num).join(this);
+		}
+		
+		var dotCount = 0;
+		function animateLoading() {
+			$("#loading span").html( ".".repeat(dotCount));
+			dotCount = (dotCount+1)%3;
+		}
+		
+		
+		$("#continue").click(function() {
+			$("#continue").hide();
+			$("#loading").show();
+			window.setInterval(animateLoading(), 1000);
+		});
+		
+		
 	});
 	
 </script>
@@ -77,8 +98,10 @@
 			<select name="toYear"></select>
 			<select name="toHour"></select>
 		</div>
-
-		<div id="continue"><p>continue...</p></div>
+		
+		
+		<div id="continue" class="button"><p>continue...</p></div>
+		<div id="working" class="button"><p>loading<span></span></p></div>
 	</form>
 
 </div>
