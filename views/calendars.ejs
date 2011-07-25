@@ -1,6 +1,8 @@
 <link rel='stylesheet' href='/stylesheets/calendars.css' />
 <script type="text/javascript" charset="utf-8">
 	var selectedList = new Array();
+	var dotCount = 0;
+			
 	$(function() {
 		var d = new Date();
 		
@@ -55,21 +57,18 @@
 			//console.log(selectedList);
 		});
 		
-		var dotCount = 0;
 		
 		$("#continue").click(function() {
 			$("#continue").hide();
 			$("#loading").show();
-		//	window.setInterval(animateLoading(), 1000);
+			window.setInterval(animateLoading(), 1000);
 		});	
 	});
 	
-	// function animateLoading() {
-	// 	var dot = ".";
-	// 	var newString = new Array(++dotCount).join(".");
-	// 	$("#loading span").html( newString ));
-	// 	dotCount = (dotCount+1)%4;
-	// }
+	function animateLoading() {
+		$("#loading span").html( new Array(++dotCount).join(".") ));
+		dotCount = (dotCount+1)%4;
+	}
 	
 </script>
 <div id="calendars">
