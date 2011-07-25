@@ -16,7 +16,7 @@
 			$("select[name='toDay']").append(new Option(i,i));	
 		}
 		$("select[name='fromDay']").val(d.getDate());
-		$("select[name='toDay']").val(d.getDate());
+		$("select[name='toDay']").val(d.getDate()+1);
 		
 		for(var i=2000;i<=2020;i++) {
 			$("select[name='fromYear']").append(new Option(i,i));
@@ -50,7 +50,7 @@
 					}
 				}
 			}
-			console.log(selectedList);
+			//console.log(selectedList);
 		});
 	});
 	

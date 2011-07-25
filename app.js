@@ -118,6 +118,13 @@ app.post('/googleEventFetch', function(req, res) {
 		},
 		function returnToWebapp(err, list) {
 			console.log(list);
+			var eventList = new Array();
+			for (var i=0; i<list.length;i++) {
+				eventList = eventList.concat(list[i]);
+			}
+			
+			console.log(eventList);
+			
 			res.render('index', {
 				page: "calendars"
 			});
