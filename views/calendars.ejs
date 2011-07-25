@@ -64,15 +64,7 @@
 			$("#loading").css("display", "table");
 			window.setInterval("animateLoading()", 1000);
 			
-			var dataString = 'calendar=' + selectedList 
-				+ '&fromDay=' + $("select[name='fromDay']").val() 
-				+ '&fromMonth=' + $("select[name='fromMonth']").val() 
-				+ '&fromYear=' + $("select[name='fromYear']").val() 
-				+ '&fromHour=' + $("select[name='fromHour']").val() 
-				+ '&toDay=' + $("select[name='toDay']").val() 
-				+ '&toMonth=' + $("select[name='toMonth']").val() 
-				+ '&toYear=' + $("select[name='toYear']").val() 
-				+ '&toHour=' + $("select[name='toHour']").val();
+			var dataString = 'calendar=' + selectedList + '&fromDay=' + $("select[name='fromDay']").val() + '&fromMonth=' + $("select[name='fromMonth']").val() + '&fromYear=' + $("select[name='fromYear']").val() + '&fromHour=' + $("select[name='fromHour']").val() + '&toDay=' + $("select[name='toDay']").val() + '&toMonth=' + $("select[name='toMonth']").val() + '&toYear=' + $("select[name='toYear']").val() + '&toHour=' + $("select[name='toHour']").val();
 			
 			console.log(dataString);
 			
