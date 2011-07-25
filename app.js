@@ -234,8 +234,9 @@ var getGoogleEventsDate = function(req, res, requestNum, startDate, endDate, cal
 				sys.puts('error: ' + sys.inspect(error));
 			} else {
 				console.log("i is :" + requestNum);
-				console.log(data);
 				var eventList = JSON.parse(data);
+				console.log(eventList.totalResults + " : " + eventList);
+				
 				if (eventList.totalResults > 0) {
 					eventList = eventList.items;
 				} else {
