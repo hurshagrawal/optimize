@@ -26,11 +26,16 @@
 	color: lightgrey;
 	font-size: 8;
 	text-align: center;
+	vertical-align: middle;
 	width: 150px;
 	height: 100px;
+	outline-style: none;
 }
 
 #continue:hover {
 	background-color: lightblue;
 	color: black;
+	outline-style: solid;
+	outline-color: black;
+	outline-width: 1px;
 }
