@@ -89,6 +89,7 @@ app.get('/googleAuthSuccess', function(req, res) {
 
 app.post('/googleEventFetch', function(req, res) {
 	
+	console.log("ok, got this request");
 	var chosenCals = req.body.calendar;
 	
 	fromDate = new Date();
