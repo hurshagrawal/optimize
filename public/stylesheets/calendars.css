@@ -8,7 +8,12 @@
 	background-color: transparent;
 }
 
-#calendarList li:hover, .clicked {
+#calendarList li:hover {
+	background-color: darkgrey;
+	color: white;
+}
+
+.clicked {
 	background-color: black;
 	color: white;
 }
