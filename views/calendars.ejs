@@ -1,9 +1,14 @@
+<link rel='stylesheet' href='/stylesheets/calendars.css' />
+<script type="text/javascript" charset="utf-8">
+	
+	
+</script>
 <div id="calendars">
 	<h1>Which calendars do you want to get events from?</h1>
 	<form action="/googleEventFetch" method="post" accept-charset="utf-8">
-		<ul>
+		<ul id="calendarList">
 			<% for(var i=0; i<list.length; i++) { %>
-				<li><input type="checkbox" name="calendar" value="<%= list[i].title %>" /> <%= list[i].title %></li>
+				<li><%= list[i].title %></li>
 			<% } %>
 		</ul>
 		<div id="fromDate">

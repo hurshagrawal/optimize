@@ -117,11 +117,10 @@ app.post('/googleEventFetch', function(req, res) {
 			}
 		},
 		function returnToWebapp(err, list) {
-			console.log("Got here, end");
 			console.log(list);
-			// res.render('index', {
-			// 				page: "calendars"
-			// 			});
+			res.render('index', {
+				page: "calendars"
+			});
 		}
 	);
 });
@@ -240,7 +239,6 @@ var getGoogleEventsDate = function(req, res, startDate, endDate, calendarFeed, c
 					eventList = new Array();
 				}
 				
-				console.log(JSON.stringify(eventList));
 				if (typeof callback === "function") callback(null, JSON.stringify(eventList));
 			}
 		});
