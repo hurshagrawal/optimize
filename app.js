@@ -108,10 +108,12 @@ app.post('/googleEventFetch', function(req, res) {
 			client.mget(req.sessionID+':google:calendarList', this);
 		},
 		function getEventsFromParticularCalendars(err, replies) {
-			var chosenCals = JSON.parse(replies[0]);
+			var allCals = JSON.parse(replies[0]);
 			var group = this.group();
-			for (var i=0; i<chosenCals.length; i++) {	
-				getGoogleEventsDate(req, res, i, fromDate, toDate, chosenCals[i].eventFeedLink, group());
+			for (var i=0; i<allCals; i++) {
+				if (arrayContains(chosenCals, allCalls[i].title)) {
+					getGoogleEventsDate(req, res, i, fromDate, toDate, allCals[i].eventFeedLink, group());
+				}
 			}
 		},
 		function returnToWebapp() {
@@ -232,7 +234,7 @@ var getGoogleEventsDate = function(req, res, requestNum, startDate, endDate, cal
 				console.log("i is :" + requestNum);
 				console.log(data);
 
-				//client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
+				client.set(req.sessionID+':google:events:'+i, JSON.stringify(calendarList), redis.print);
 				if (typeof callback === "function") callback();
 			}
 		});
@@ -268,4 +270,12 @@ var makeTimeArray = function() {
 		timeArray.push(i+"PM");
 	}
 	return timeArray;
+}
+
+var arrayContains = function(array, value) {
+	for(var i=0;i<array.length;i++) {
+		if (array[i] === value) return true;
+	}
+	
+	return false;
 }
