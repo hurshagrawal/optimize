@@ -28,6 +28,7 @@
 	width: 150px;
 	height: 60px;
 	outline-style: none;
+	cursor: pointer;
 	display: table;
 }
 

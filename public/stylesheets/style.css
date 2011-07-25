@@ -23,6 +23,7 @@ body {
 	width: 950px;
 	margin: 5px;
 	background-color: lightgreen;
+	padding: 5px;
 }
 
 #content ul {
