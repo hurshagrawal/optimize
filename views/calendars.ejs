@@ -1,4 +1,5 @@
 <link rel='stylesheet' href='/stylesheets/calendars.css' />
+<script type='text/javascript' src='http://jquery-json.googlecode.com/files/jquery.json-2.2.min.js'></script>
 <script type="text/javascript" charset="utf-8">
 	var optimize = {};
 	optimize.selectedList = new Array();
@@ -64,7 +65,7 @@
 			$("#loading").css("display", "table");
 			window.setInterval("animateLoading()", 1000);
 			
-			var dataString = 'calendar=' + selectedList + '&fromDay=' + $("select[name='fromDay']").val() + '&fromMonth=' + $("select[name='fromMonth']").val() + '&fromYear=' + $("select[name='fromYear']").val() + '&fromHour=' + $("select[name='fromHour']").val() + '&toDay=' + $("select[name='toDay']").val() + '&toMonth=' + $("select[name='toMonth']").val() + '&toYear=' + $("select[name='toYear']").val() + '&toHour=' + $("select[name='toHour']").val();
+			var dataString = 'calendar=' + $.toJSON(optimize.selectedList) + '&fromDay=' + $("select[name='fromDay']").val() + '&fromMonth=' + $("select[name='fromMonth']").val() + '&fromYear=' + $("select[name='fromYear']").val() + '&fromHour=' + $("select[name='fromHour']").val() + '&toDay=' + $("select[name='toDay']").val() + '&toMonth=' + $("select[name='toMonth']").val() + '&toYear=' + $("select[name='toYear']").val() + '&toHour=' + $("select[name='toHour']").val();
 			
 			console.log(dataString);
 			
