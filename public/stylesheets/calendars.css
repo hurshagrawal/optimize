@@ -22,14 +22,17 @@
 #continue {
 	margin-left: auto;
 	margin-right: auto;
-	background-color: blue;
-	color: lightgrey;
+	background-color: darkblue;
+	color: white;
 	font-size: 8;
+	width: 150px;
+	height: 60px;
+	outline-style: none;
+}
+
+#continue p {
 	text-align: center;
 	vertical-align: middle;
-	width: 150px;
-	height: 100px;
-	outline-style: none;
 }
 
 #continue:hover {
