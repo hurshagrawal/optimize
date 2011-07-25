@@ -8,12 +8,12 @@
 	background-color: transparent;
 }
 
-/*#calendarList li:hover {
-	background-color: darkgrey;
+#calendarList li .clicked {
+	background-color: black;
 	color: white;
-}*/
+}
 
-.clicked {
+#calendarList li:hover {
 	background-color: black;
 	color: white;
 }
