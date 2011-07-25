@@ -131,12 +131,10 @@ app.get('/splash', function(req, res) {
 });
 
 app.get('/calendars', function(req, res) {
-	var timeArray = makeTimeArray();
 	
 	client.mget(req.sessionID+':google:calendarList',
 	function(err, replies) {
 		res.render('calendars', {
-			time: timeArray,
 			list: JSON.parse(replies[0])
 		});
 	});
@@ -260,21 +258,6 @@ var padNum = function(n) {
 		return n;
 	}
 };
-
-var makeTimeArray = function() {
-	timeArray = new Array();
-	
-	timeArray.push("12AM");
-	for (var i=1; i<=11; i++) {
-		timeArray.push(i+"AM");
-	}
-	
-	timeArray.push("12PM");
-	for (var i=1; i<=11; i++) {
-		timeArray.push(i+"PM");
-	}
-	return timeArray;
-}
 
 var arrayContains = function(array, value) {
 	for(var i=0;i<array.length;i++) {

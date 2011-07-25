@@ -3,6 +3,7 @@
 	var selectedList = new Array();
 	$(function() {
 		var d = new Date();
+		
 		for(var i=1;i<=12;i++) {
 			$("select[name='fromMonth']").append(new Option(i,i));
 			$("select[name='toMonth']").append(new Option(i,i));	
@@ -17,19 +18,25 @@
 		$("select[name='fromDay']").val(d.getDate());
 		$("select[name='toDay']").val(d.getDate());
 		
-		for(var i=1;i<=12;i++) {
+		for(var i=2000;i<=2020;i++) {
 			$("select[name='fromYear']").append(new Option(i,i));
 			$("select[name='toYear']").append(new Option(i,i));	
 		}
 		$("select[name='fromYear']").val(d.getFullYear());
 		$("select[name='toYear']").val(d.getFullYear());
 		
-		for(var i=1;i<=12;i++) {
-			$("select[name='fromHour']").append(new Option(i,i));
-			$("select[name='toHour']").append(new Option(i,i));	
+		var ampm = [" AM", " PM"];
+		var runningTime = 0;
+		for(var i=0;i<2;i++) {
+			$("select[name='fromHour']").append(new Option("12"+ampm[i],12*i));
+			$("select[name='toHour']").append(new Option("12"+ampm[i],12*i));
+			for(var j=1;j<=11;j++) {
+				$("select[name='fromHour']").append(new Option(i+ampm[i],j));
+				$("select[name='toHour']").append(new Option(i+ampm[i],j));	
+			}
 		}
 		$("select[name='fromHour']").val(d.getHours());
-		$("select[name='toHour']").val(d.getHours());
+		$("select[name='toHour']").val((d.getHours()+1)%24);
 
 		$("#calendarList li").click(function() {
 			if (!$(this).hasClass("clicked")) {
