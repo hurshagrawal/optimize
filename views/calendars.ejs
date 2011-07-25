@@ -73,11 +73,13 @@
 				+ '&toMonth=' + $("select[name='toMonth]").val() 
 				+ '&toYear=' + $("select[name='toYear]").val() 
 				+ '&toHour=' + $("select[name='toHour]").val();
-				
+			
+			console.log(dataString);
+			
 			$.ajax({
 				type: 'POST',
 				url: '/googleEventFetch',
-				data: dataString;
+				data: dataString,
 				success: function(data) {
 					var resData = $.parseJSON(data);
 					optimize.events = resData.eventList;
