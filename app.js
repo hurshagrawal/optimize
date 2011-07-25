@@ -89,10 +89,8 @@ app.get('/googleAuthSuccess', function(req, res) {
 
 app.post('/googleEventFetch', function(req, res) {
 	
-	console.log("ok, got this request");
 	var chosenCals = req.body.calendar;
 	
-	console.log(chosenCals);
 	fromDate = new Date();
 	toDate = new Date();
 	
@@ -254,6 +252,7 @@ var getGoogleEventsDate = function(req, res, startDate, endDate, calendarFeed, c
 					eventList = new Array();
 				}
 				
+				console.log(JSON.stringify(eventList));
 				if (typeof callback === "function") callback(null, JSON.stringify(eventList));
 			}
 		});
