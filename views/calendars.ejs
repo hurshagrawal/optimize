@@ -60,7 +60,7 @@
 		
 		$("#continue").click(function() {
 			$("#continue").hide();
-			$("#loading").css("style", " ");
+			$("#loading").prop("style", " ");
 			window.setInterval("animateLoading()", 1000);
 		});	
 	});
