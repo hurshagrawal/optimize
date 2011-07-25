@@ -40,7 +40,7 @@
 		$("select[name='fromHour']").val(d.getHours());
 		$("select[name='toHour']").val((d.getHours()+1)%24);
 
-		$("#loading").hide();
+		$("#loading").css("display", "none");
 		
 		$("#calendarList li").click(function() {
 			if (!$(this).hasClass("clicked")) {
@@ -60,7 +60,7 @@
 		
 		$("#continue").click(function() {
 			$("#continue").hide();
-			$("#loading").prop("style", false);
+			$("#loading").css("display", "table-cell");
 			window.setInterval("animateLoading()", 1000);
 		});	
 	});
