@@ -28,11 +28,13 @@
 	width: 150px;
 	height: 60px;
 	outline-style: none;
+	display: table;
 }
 
 #continue p {
 	text-align: center;
 	vertical-align: middle;
+	display: table-cell;
 }
 
 #continue:hover {
