@@ -3,6 +3,7 @@
 }
 
 #calendarList li {
+	cursor: pointer;
 	font-size: 25px;
 	color: black;
 	background-color: transparent;
