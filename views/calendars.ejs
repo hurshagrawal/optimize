@@ -84,7 +84,7 @@
 	
 	function animateLoading() {
 		$("#loading span").html( new Array(++optimize.dotCount).join(".") );
-		optimize.dotCount = dotCount%4;
+		optimize.dotCount = optimize.dotCount%4;
 	}
 	
 </script>
