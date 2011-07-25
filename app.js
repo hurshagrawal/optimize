@@ -125,9 +125,12 @@ app.post('/googleEventFetch', function(req, res) {
 			
 			console.log(eventList);
 			
-			res.render('index', {
-				page: "calendars"
-			});
+			var responseString = {
+				url: "/events",
+				eventList: JSON.stringify(eventList)
+			}
+			response.writeHead(200, {'Content-Type':'text/json'});
+			response.end(JSON.stringify(responseString));
 		}
 	);
 });
@@ -145,6 +148,10 @@ app.get('/calendars', function(req, res) {
 			list: JSON.parse(replies[0])
 		});
 	});
+});
+
+app.get('/events', function(req, res) {
+	res.render('events', {});
 });
 
 //Deploy server

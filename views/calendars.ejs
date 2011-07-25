@@ -1,7 +1,8 @@
 <link rel='stylesheet' href='/stylesheets/calendars.css' />
 <script type="text/javascript" charset="utf-8">
-	var selectedList = new Array();
-	var dotCount = 0;
+	var optimize.selectedList = new Array();
+	var optimize.dotCount = 0;
+	var optimize.events;
 			
 	$(function() {
 		var d = new Date();
@@ -45,12 +46,12 @@
 		$("#calendarList li").click(function() {
 			if (!$(this).hasClass("clicked")) {
 				$(this).addClass("clicked");
-				selectedList.push($(this).html());
+				optimize.selectedList.push($(this).html());
 			} else {
 				$(this).removeClass("clicked");
-				for(var i=selectedList.length-1; i>=0; i--) {
-					if (selectedList[i] === $(this).html()) {
-						selectedList.splice(i,1);
+				for(var i=optimize.selectedList.length-1; i>=0; i--) {
+					if (optimize.selectedList[i] === $(this).html()) {
+						optimize.selectedList.splice(i,1);
 					}
 				}
 			}
@@ -62,18 +63,39 @@
 			$("#continue").hide();
 			$("#loading").css("display", "table");
 			window.setInterval("animateLoading()", 1000);
+			
+			var dataString = 'calendar=' + selectedList 
+				+ '&fromDay=' + $("select[name='fromDay]").val() 
+				+ '&fromMonth=' + $("select[name='fromMonth]").val() 
+				+ '&fromYear=' + $("select[name='fromYear]").val() 
+				+ '&fromHour=' + $("select[name='fromHour]").val() 
+				+ '&toDay=' + $("select[name='toDay]").val() 
+				+ '&toMonth=' + $("select[name='toMonth]").val() 
+				+ '&toYear=' + $("select[name='toYear]").val() 
+				+ '&toHour=' + $("select[name='toHour]").val();
+				
+			$.ajax({
+				type: 'POST',
+				url: '/googleEventFetch',
+				data: dataString;
+				success: function(data) {
+					var resData = $.parseJSON(data);
+					optimize.events = resData.eventList;
+					$("#content").load(resData.url);
+				}
+			});
 		});	
 	});
 	
 	function animateLoading() {
-		$("#loading span").html( new Array(++dotCount).join(".") );
-		dotCount = dotCount%4;
+		$("#loading span").html( new Array(++optimize.dotCount).join(".") );
+		optimize.dotCount = dotCount%4;
 	}
 	
 </script>
 <div id="calendars">
 	<h1>Which calendars do you want to get events from?</h1>
-	<form action="/googleEventFetch" method="post" accept-charset="utf-8">
+	<form accept-charset="utf-8">
 		<ul id="calendarList">
 			<% for(var i=0; i<list.length; i++) { %>
 				<li><%= list[i].title %></li>

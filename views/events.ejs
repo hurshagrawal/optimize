@@ -1,0 +1,12 @@
+<link rel='stylesheet' href='/stylesheets/events.css' />
+<script type="text/javascript" charset="utf-8">
+	$(function() {
+		for (var i=0; i<optimize.events.length; i++) {
+			$("eventList").append("<li>"+$.optimize.events[i].title+"</li>")
+		}
+	});
+</script>
+<div id="calendars">
+	<h1>Your events!</h1>	
+		<ul id="eventList"></ul>
+</div>
