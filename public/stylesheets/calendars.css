@@ -1,9 +1,13 @@
+#calendarList {
+	width: 300px;
+}
+
 #calendarList li {
-	font-size: 15px;
+	font-size: 25px;
 	color: black;
 }
 
-#calendarList li:hover {
+#calendarList li:hover, .clicked {
 	background-color: black;
 	color: white;
 }
