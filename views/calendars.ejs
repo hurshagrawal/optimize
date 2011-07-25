@@ -61,8 +61,10 @@
 		
 		var dotCount = 0;
 		function animateLoading() {
-			$("#loading span").html( ".".repeat(dotCount));
-			dotCount = (dotCount+1)%3;
+			var dot = ".";
+			var newString = new Array(++dotCount).join(".");
+			$("#loading span").html( newString ));
+			dotCount = (dotCount+1)%4;
 		}
 		
 		
