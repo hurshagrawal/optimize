@@ -5,6 +5,7 @@
 #calendarList li {
 	font-size: 25px;
 	color: black;
+	background-color: transparent;
 }
 
 #calendarList li:hover, .clicked {
