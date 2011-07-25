@@ -31,8 +31,8 @@
 			$("select[name='fromHour']").append(new Option("12"+ampm[i],12*i));
 			$("select[name='toHour']").append(new Option("12"+ampm[i],12*i));
 			for(var j=1;j<=11;j++) {
-				$("select[name='fromHour']").append(new Option(i+ampm[i],j));
-				$("select[name='toHour']").append(new Option(i+ampm[i],j));	
+				$("select[name='fromHour']").append(new Option(j+ampm[i],(12*i)+j));
+				$("select[name='toHour']").append(new Option(j+ampm[i],(12*i)+j));	
 			}
 		}
 		$("select[name='fromHour']").val(d.getHours());
