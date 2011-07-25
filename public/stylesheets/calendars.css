@@ -23,11 +23,11 @@
 	margin-left: auto;
 	margin-right: auto;
 	background-color: blue;
-	color: white;
-	font-size: 12;
+	color: lightgrey;
+	font-size: 8;
 	text-align: center;
-	width: 45px;
-	height: 30px;
+	width: 150px;
+	height: 100px;
 }
 
 #continue:hover {
