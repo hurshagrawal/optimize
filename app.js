@@ -105,10 +105,13 @@ app.post('/googleEventFetch', function(req, res) {
 	
 	step(
 		function getCalendarList() {
+			console.log("get called 1");
 			client.mget(req.sessionID+':google:calendarList', this);
 		},
 		function getEventsFromParticularCalendars(err, replies) {
+			console.log("get called 2");
 			var allCals = JSON.parse(replies[0]);
+			console.log("allCalls");
 			var group = this.group();
 			for (var i=0; i<allCals.length; i++) {
 				if (arrayContains(chosenCals, allCals[i].title)) {
