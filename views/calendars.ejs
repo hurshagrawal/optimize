@@ -60,13 +60,15 @@
 		
 		$("#continue").click(function() {
 			$("#continue").hide();
-			$("#loading").show();
+			$("#loading").css('display', 'table-cell');
 			setInterval(animateLoading(), 1000);
 		});	
 	});
 	
 	function animateLoading() {
-		$("#loading span").html( new Array(++dotCount).join(".") );
+		var newDots = new Array(++dotCount).join(".");
+		$("#loading span").html( newDots );
+		console.log(newDots);
 		dotCount = (dotCount+1)%4;
 	}
 	
