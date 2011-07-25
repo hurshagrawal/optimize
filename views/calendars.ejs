@@ -1,8 +1,8 @@
 <link rel='stylesheet' href='/stylesheets/calendars.css' />
 <script type="text/javascript" charset="utf-8">
-	var optimize.selectedList = new Array();
-	var optimize.dotCount = 0;
-	var optimize.events;
+	var optimize;
+	optimize.selectedList = new Array();
+	optimize.dotCount = 0;
 			
 	$(function() {
 		var d = new Date();
@@ -76,16 +76,16 @@
 			
 			console.log(dataString);
 			
-			// $.ajax({
-			// 	type: 'POST',
-			// 	url: '/googleEventFetch',
-			// 	data: dataString,
-			// 	success: function(data) {
-			// 		var resData = $.parseJSON(data);
-			// 		optimize.events = resData.eventList;
-			// 		$("#content").load(resData.url);
-			// 	}
-			// });
+			$.ajax({
+				type: 'POST',
+				url: '/googleEventFetch',
+				data: dataString,
+				success: function(data) {
+					var resData = $.parseJSON(data);
+					optimize.events = resData.eventList;
+					$("#content").load(resData.url);
+				}
+			});
 		});	
 	});
 	
