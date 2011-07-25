@@ -112,7 +112,7 @@ app.post('/googleEventFetch', function(req, res) {
 			var group = this.group();
 			for (var i=0; i<allCals.length; i++) {
 				if (arrayContains(chosenCals, allCals[i].title)) {
-					getGoogleEventsDate(req, res, i, fromDate, toDate, allCals[i].eventFeedLink, group());
+					getGoogleEventsDate(req, res, fromDate, toDate, allCals[i].eventFeedLink, group());
 				}
 			}
 		},
@@ -217,7 +217,7 @@ var getGoogleCalendarList = function(req, res, callback) {
 	});
 };
 
-var getGoogleEventsDate = function(req, res, requestNum, startDate, endDate, calendarFeed, callback) {
+var getGoogleEventsDate = function(req, res, startDate, endDate, calendarFeed, callback) {
 	client.mget(req.sessionID + ':google:accessToken', 
 	req.sessionID + ':google:accessTokenSecret', 
 	req.sessionID + ':google:calendarList',
@@ -232,7 +232,6 @@ var getGoogleEventsDate = function(req, res, requestNum, startDate, endDate, cal
 			if (error) {
 				sys.puts('error: ' + sys.inspect(error));
 			} else {
-				console.log("i is :" + requestNum);
 				var eventList = JSON.parse(data).data;
 				
 				if (eventList.totalResults > 0) {
@@ -242,8 +241,7 @@ var getGoogleEventsDate = function(req, res, requestNum, startDate, endDate, cal
 				}
 				
 				console.log(JSON.stringify(eventList));
-				//client.set(req.sessionID+':google:events:'+requestNum, JSON.stringify(eventList), redis.print);
-				if (typeof callback === "function") callback(eventList);
+				if (typeof callback === "function") callback(null, JSON.stringify(eventList));
 			}
 		});
 	});
