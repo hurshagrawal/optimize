@@ -111,7 +111,7 @@ app.post('/googleEventFetch', function(req, res) {
 			var allCals = JSON.parse(replies[0]);
 			var group = this.group();
 			console.log(chosenCals);
-			for (var i=0; i<allCals; i++) {
+			for (var i=0; i<allCals.length; i++) {
 				console.log(allCals[i].title);
 				if (arrayContains(chosenCals, allCals[i].title)) {
 					getGoogleEventsDate(req, res, i, fromDate, toDate, allCals[i].eventFeedLink, group());
