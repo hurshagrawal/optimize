@@ -111,7 +111,7 @@ app.post('/googleEventFetch', function(req, res) {
 		function getEventsFromParticularCalendars(err, replies) {
 			console.log("get called 2");
 			var allCals = JSON.parse(replies[0]);
-			console.log("allCalls");
+			console.log(replies[0]);
 			var group = this.group();
 			for (var i=0; i<allCals.length; i++) {
 				if (arrayContains(chosenCals, allCals[i].title)) {
