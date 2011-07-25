@@ -60,14 +60,14 @@
 		
 		$("#continue").click(function() {
 			$("#continue").hide();
-			$("#loading").removeAttr("style");
+			$("#loading").css("style", " ");
 			window.setInterval("animateLoading()", 1000);
 		});	
 	});
 	
 	function animateLoading() {
 		$("#loading span").html( new Array(++dotCount).join(".") );
-		dotCount = (dotCount+1)%4;
+		dotCount = dotCount%4;
 	}
 	
 </script>
