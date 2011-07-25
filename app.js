@@ -108,17 +108,17 @@ app.post('/googleEventFetch', function(req, res) {
 			client.mget(req.sessionID+':google:calendarList', this);
 		},
 		function getEventsFromParticularCalendars(err, replies) {
-			console.log("reached here");
-			console.log(replies[0]);
-			// for (int i=0; i<chosenCals.length; i++ ) {
-			// 	
-			// 	getGoogleEventsDate(req, res, fromDate, toDate, , this);
-			// }
+			var chosenCals = JSON.parse(replies[0]);
+			var group = this.group();
+			for (int i=0; i<chosenCals.length; i++ ) {	
+				getGoogleEventsDate(req, res, i, fromDate, toDate, chosenCals[i].eventFeedLink, group());
+			}
 		},
 		function returnToWebapp() {
-			res.render('index', {
-				page: "calendars"
-			});
+			console.log("Got here, end");
+			// res.render('index', {
+			// 				page: "calendars"
+			// 			});
 		}
 	);
 });
@@ -187,84 +187,85 @@ var getGoogleAccessToken = function(req, res, callback) {
 					if (typeof callback === "function") callback();
 				}
 			});
+	});
+};
+
+var getGoogleCalendarList = function(req, res, callback) {
+	client.mget(req.sessionID + ':google:accessToken', 
+	req.sessionID + ':google:accessTokenSecret', 
+	function(err, replies) {
+		//console.log("access token: "+replies[0]); //access token
+		//console.log("access token secret: "+replies[1]); //access token secret
+
+		var requestURL = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
+
+		googleoa.get(requestURL, replies[0], replies[1], function(error, data, results) {
+			if (error) {
+				sys.puts('error: ' + sys.inspect(error));
+			} else {
+				
+				var calendarList = JSON.parse(data).data.items;
+				//console.log(calendarList);
+
+				client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
+				if (typeof callback === "function") callback();
+			}
 		});
-	};
+	});
+};
 
-	var getGoogleCalendarList = function(req, res, callback) {
-		client.mget(req.sessionID + ':google:accessToken', 
-		req.sessionID + ':google:accessTokenSecret', 
-		function(err, replies) {
-			//console.log("access token: "+replies[0]); //access token
-			//console.log("access token secret: "+replies[1]); //access token secret
-
-			var requestURL = "https://www.google.com/calendar/feeds/default/allcalendars/full?alt=jsonc";
-
-			googleoa.get(requestURL, replies[0], replies[1], function(error, data, results) {
-				if (error) {
-					sys.puts('error: ' + sys.inspect(error));
-				} else {
-					
-					var calendarList = JSON.parse(data).data.items;
-					//console.log(calendarList);
-
-					client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
-					if (typeof callback === "function") callback();
-				}
-			});
-		});
-	};
-
-	var getGoogleEventsDate = function(req, res, startDate, endDate, chosenCal, callback) {
-		client.mget(req.sessionID + ':google:accessToken', 
-		req.sessionID + ':google:accessTokenSecret', 
-		req.sessionID + ':google:calendarList',
-		function(err, replies) {
-			
-			var calendarList
-			//date/times must be in "2006-03-24T23:59:59" format
-			var requestURL = "https://www.google.com/calendar/feeds/default/private/full?start-min="
-			+ formatDate(startDate) + "&start-max=" + formatDate(endDate) + "&alt=jsonc";
-
-			googleoa.get(requestURL, replies[0], replies[1], function(error, data, results) {
-				if (error) {
-					sys.puts('error: ' + sys.inspect(error));
-				} else {
-					//console.log(JSON.parse(data));
-
-					//client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
-					if (typeof callback === "function") callback();
-				}
-			});
-		});
-	};
-	
-	//formats in "2006-03-24T23:59:59" format
-	var formatDate = function(d) {
-		var date = d.getFullYear() + '-' + padNum(d.getMonth()) + '-' + padNum(d.getDate())
-		+ "T" + padNum(d.getHours()) + ":" + padNum(d.getMinutes()) + ":" + padNum(d.getSeconds());
-		return date;
-	};
-	
-	//adds leading 0s to single digits
-	var padNum = function(n) { 
-		if (n < 10) {
-			return "0" + n;
-		} else {
-			return n;
-		}
-	};
-	
-	var makeTimeArray = function() {
-		timeArray = new Array();
+var getGoogleEventsDate = function(req, res, requestNum, startDate, endDate, calendarFeed, callback) {
+	client.mget(req.sessionID + ':google:accessToken', 
+	req.sessionID + ':google:accessTokenSecret', 
+	req.sessionID + ':google:calendarList',
+	function(err, replies) {
 		
-		timeArray.push("12AM");
-		for (var i=1; i<=11; i++) {
-			timeArray.push(i+"AM");
-		}
-		
-		timeArray.push("12PM");
-		for (var i=1; i<=11; i++) {
-			timeArray.push(i+"PM");
-		}
-		return timeArray;
+		var calendarList
+		//date/times must be in "2006-03-24T23:59:59" format
+		var requestURL = calendarFeed + "?start-min=" + formatDate(startDate) + "&start-max=" + 
+			formatDate(endDate) + "&alt=jsonc";
+
+		googleoa.get(requestURL, replies[0], replies[1], function(error, data, results) {
+			if (error) {
+				sys.puts('error: ' + sys.inspect(error));
+			} else {
+				console.log("i is :" + requestNum);
+				console.log(data);
+
+				//client.set(req.sessionID+':google:calendarList', JSON.stringify(calendarList), redis.print);
+				if (typeof callback === "function") callback();
+			}
+		});
+	});
+};
+
+//formats in "2006-03-24T23:59:59" format
+var formatDate = function(d) {
+	var date = d.getFullYear() + '-' + padNum(d.getMonth()) + '-' + padNum(d.getDate())
+	+ "T" + padNum(d.getHours()) + ":" + padNum(d.getMinutes()) + ":" + padNum(d.getSeconds());
+	return date;
+};
+
+//adds leading 0s to single digits
+var padNum = function(n) { 
+	if (n < 10) {
+		return "0" + n;
+	} else {
+		return n;
 	}
+};
+
+var makeTimeArray = function() {
+	timeArray = new Array();
+	
+	timeArray.push("12AM");
+	for (var i=1; i<=11; i++) {
+		timeArray.push(i+"AM");
+	}
+	
+	timeArray.push("12PM");
+	for (var i=1; i<=11; i++) {
+		timeArray.push(i+"PM");
+	}
+	return timeArray;
+}
