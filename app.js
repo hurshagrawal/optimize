@@ -236,7 +236,7 @@ var getGoogleEventsDate = function(req, res, requestNum, startDate, endDate, cal
 				console.log("i is :" + requestNum);
 				console.log(data);
 
-				client.set(req.sessionID+':google:events:'+i, JSON.stringify(calendarList), redis.print);
+				client.set(req.sessionID+':google:events:'+requestNum, JSON.stringify(calendarList), redis.print);
 				if (typeof callback === "function") callback();
 			}
 		});
