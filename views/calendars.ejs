@@ -31,6 +31,7 @@
 <div id="calendars">
 	<h1>Which calendars do you want to get events from?</h1>
 	<form action="/googleEventFetch" method="post" accept-charset="utf-8">
+		<% var d = new Date(); %>
 		<ul id="calendarList">
 			<% for(var i=0; i<list.length; i++) { %>
 				<li><%= list[i].title %></li>
