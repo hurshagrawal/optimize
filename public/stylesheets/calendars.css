@@ -44,6 +44,8 @@
 	background-color: #990000;
 	color: white;
 	cursor: default;
+	text-align: left;
+	left-padding: 30%;
 }
 
 .button p {
