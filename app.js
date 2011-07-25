@@ -228,13 +228,13 @@ var getGoogleEventsDate = function(req, res, requestNum, startDate, endDate, cal
 		//date/times must be in "2006-03-24T23:59:59" format
 		var requestURL = calendarFeed + "?start-min=" + formatDate(startDate) + "&start-max=" + 
 			formatDate(endDate) + "&alt=jsonc";
-		console.log(requestURL);
 		
 		googleoa.get(requestURL, replies[0], replies[1], function(error, data, results) {
 			if (error) {
 				sys.puts('error: ' + sys.inspect(error));
 			} else {
 				console.log("i is :" + requestNum);
+				console.log(data);
 				var eventList = JSON.parse(data);
 				if (eventList.totalResults > 0) {
 					eventList = eventList.items;
