@@ -234,9 +234,15 @@ var getGoogleEventsDate = function(req, res, requestNum, startDate, endDate, cal
 				sys.puts('error: ' + sys.inspect(error));
 			} else {
 				console.log("i is :" + requestNum);
-				console.log(data);
-
-				client.set(req.sessionID+':google:events:'+requestNum, JSON.stringify(calendarList), redis.print);
+				var eventList = JSON.parse(data);
+				if (eventList.totalResults > 0) {
+					eventList = eventList.items;
+				} else {
+					eventList = new Array();
+				}
+				console.log(JSON.stringify(eventList));
+				
+			//	client.set(req.sessionID+':google:events:'+requestNum, JSON.stringify(eventList), redis.print);
 				if (typeof callback === "function") callback();
 			}
 		});

@@ -12,7 +12,7 @@
 			<select name="fromMonth">
 			<% for(var i=1; i<=12; i++) { %>
 				<option value="<%= i %>" 
-					<% if (d.getMonth() === i) { %>
+					<% if (d.getMonth() === i-1) { %>
 						<%= 'selected="selected"' %> 
 					<% } %> >
 					<%= i %>
@@ -50,7 +50,7 @@
 			<select name="toMonth">
 			<% for(var i=1; i<=12; i++) { %>
 				<option value="<%= i %>" 
-					<% if (d.getMonth() === i) { %>
+					<% if (d.getMonth() === i-1) { %>
 						<%= 'selected="selected"' %> 
 					<% } %> >
 					<%= i %>
