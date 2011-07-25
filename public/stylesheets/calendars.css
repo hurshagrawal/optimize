@@ -19,7 +19,7 @@
 	color: white;
 }
 
-#continue {
+.button {
 	margin-left: auto;
 	margin-right: auto;
 	background-color: darkblue;
@@ -32,7 +32,7 @@
 	display: table;
 }
 
-#continue p {
+.button p {
 	text-align: center;
 	vertical-align: middle;
 	display: table-cell;
@@ -44,4 +44,9 @@
 	outline-style: solid;
 	outline-color: black;
 	outline-width: 1px;
+}
+
+#loading {
+	background-color: #990000;
+	color: white;
 }

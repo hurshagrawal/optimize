@@ -60,22 +60,20 @@
 		}
 		
 		var dotCount = 0;
-		function animateLoading() {
-			var dot = ".";
-			var newString = new Array(++dotCount).join(".");
-			$("#loading span").html( newString ));
-			dotCount = (dotCount+1)%4;
-		}
-		
 		
 		$("#continue").click(function() {
 			$("#continue").hide();
 			$("#loading").show();
 			window.setInterval(animateLoading(), 1000);
-		});
-		
-		
+		});	
 	});
+	
+	function animateLoading() {
+		var dot = ".";
+		var newString = new Array(++dotCount).join(".");
+		$("#loading span").html( newString ));
+		dotCount = (dotCount+1)%4;
+	}
 	
 </script>
 <div id="calendars">
