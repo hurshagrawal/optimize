@@ -8,7 +8,7 @@
 	background-color: transparent;
 }
 
-#calendarList li .clicked {
+#calendarList li.clicked {
 	background-color: black;
 	color: white;
 }
