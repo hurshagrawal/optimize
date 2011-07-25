@@ -110,7 +110,7 @@ app.post('/googleEventFetch', function(req, res) {
 		function getEventsFromParticularCalendars(err, replies) {
 			var chosenCals = JSON.parse(replies[0]);
 			var group = this.group();
-			for (int i=0; i<chosenCals.length; i++ ) {	
+			for (var i=0; i<chosenCals.length; i++) {	
 				getGoogleEventsDate(req, res, i, fromDate, toDate, chosenCals[i].eventFeedLink, group());
 			}
 		},
