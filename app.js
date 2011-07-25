@@ -110,16 +110,15 @@ app.post('/googleEventFetch', function(req, res) {
 		function getEventsFromParticularCalendars(err, replies) {
 			var allCals = JSON.parse(replies[0]);
 			var group = this.group();
-			console.log(chosenCals);
 			for (var i=0; i<allCals.length; i++) {
-				console.log(allCals[i].title);
 				if (arrayContains(chosenCals, allCals[i].title)) {
 					getGoogleEventsDate(req, res, i, fromDate, toDate, allCals[i].eventFeedLink, group());
 				}
 			}
 		},
-		function returnToWebapp() {
+		function returnToWebapp(err, list) {
 			console.log("Got here, end");
+			console.log(list);
 			// res.render('index', {
 			// 				page: "calendars"
 			// 			});
@@ -241,10 +240,10 @@ var getGoogleEventsDate = function(req, res, requestNum, startDate, endDate, cal
 				} else {
 					eventList = new Array();
 				}
-				console.log(JSON.stringify(eventList));
 				
-			//	client.set(req.sessionID+':google:events:'+requestNum, JSON.stringify(eventList), redis.print);
-				if (typeof callback === "function") callback();
+				console.log(JSON.stringify(eventList));
+				//client.set(req.sessionID+':google:events:'+requestNum, JSON.stringify(eventList), redis.print);
+				if (typeof callback === "function") callback(eventList);
 			}
 		});
 	});
