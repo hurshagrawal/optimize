@@ -6,7 +6,7 @@
 			$(this).addClass("clicked");
 			selectedList.push($(this).val());
 		} else {
-			$(this.removeClass("clicked"));
+			$(this).removeClass("clicked"));
 			for(var i=selectedList.length-1; i>=0; i--) {
 				if (selectedList[i] === $(this).val()) {
 					selectedList.splice(i,1);
