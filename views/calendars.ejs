@@ -4,11 +4,11 @@
 	$(function() {
 		var d = new Date();
 		for(var i=1;i<=12;i++) {
-			$("select[name='fromDate']").append(new Option(i,i));
-			$("select[name='toDate']").append(new Option(i,i));	
+			$("select[name='fromMonth']").append(new Option(i,i));
+			$("select[name='toMonth']").append(new Option(i,i));	
 		}
-		$("select[name='fromDate']").val(d.getMonth());
-		$("select[name='toDate']").val(d.getMonth());
+		$("select[name='fromMonth']").val(d.getMonth());
+		$("select[name='toMonth']").val(d.getMonth());
 		
 
 		$("#calendarList li").click(function() {
