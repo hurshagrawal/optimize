@@ -53,11 +53,12 @@ app.error(function(err, req, res, next){
 	res.send('404 Not Found<br><br>'+err,404);
 });
 
-// Routes
+// MAIN PAGE ROUTE
 app.get('/', function(req, res){
 	res.render('index', {});
 });
 
+// OAUTH ROUTES
 app.get('/getGoogleRequestToken', function(req, res) {
 	getGoogleRequestToken(req, res);
 });
@@ -83,25 +84,7 @@ app.get('/googleAuthSuccess', function(req, res) {
 
 });
 
-app.get('/googleCalendarFetch', function(req, res) {
-	
-	step(
-		function getCalendarList() {
-			client.mget(req.sessionID+':google:calendarList', this);
-		},
-		function returnToWebapp(err, replies) {
-			
-			var responseString = {
-				url: "/calendars",
-				eventList: replies[0]
-			}
-			res.writeHead(200, {'Content-Type':'text/json'});
-			res.end(JSON.stringify(responseString));
-		}
-	);
-	
-});
-
+//AJAX QUERY ROUTES
 app.post('/googleEventFetch', function(req, res) {
 	
 	var chosenCals = JSON.parse(req.body.calendar);
@@ -149,7 +132,7 @@ app.post('/googleEventFetch', function(req, res) {
 	);
 });
 
-//AJAX Routes
+//PAGE STUB ROUTES
 app.get('/calendars', function(req, res) {
 	
 	client.mget(req.sessionID+':google:calendarList',
