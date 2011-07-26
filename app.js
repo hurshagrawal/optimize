@@ -278,7 +278,14 @@ var padNum = function(n) {
 
 var arrayContains = function(array, value) {
 	for(var i=0;i<array.length;i++) {
-		if (array[i] === value) return true;
+		console.log("---");
+		console.log(array[i]);
+		console.log(value);
+		if (array[i] === value) {
+			console.log("true");
+			return true;
+		}
 	}
+	console.log("false");
 	return false;
 }
