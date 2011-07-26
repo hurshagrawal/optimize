@@ -90,6 +90,7 @@ app.get('/googleAuthSuccess', function(req, res) {
 app.post('/googleEventFetch', function(req, res) {
 	
 	var chosenCals = req.body.calendar;
+	console.log(chosenCals);
 	
 	fromDate = new Date();
 	toDate = new Date();
@@ -103,15 +104,16 @@ app.post('/googleEventFetch', function(req, res) {
 	toDate.setFullYear(parseInt(req.body.toYear));
 	toDate.setHours(parseInt(req.body.toHour));
 	
+	console.log(fromDate.toString());
+	console.log(toDate.toString());
+	
 	step(
 		function getCalendarList() {
-			console.log("get called 1");
 			client.mget(req.sessionID+':google:calendarList', this);
 		},
 		function getEventsFromParticularCalendars(err, replies) {
-			console.log("get called 2");
 			var allCals = JSON.parse(replies[0]);
-			console.log(replies[0]);
+
 			var group = this.group();
 			for (var i=0; i<allCals.length; i++) {
 				if (arrayContains(chosenCals, allCals[i].title)) {
