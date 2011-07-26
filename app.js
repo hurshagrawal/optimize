@@ -115,7 +115,8 @@ app.post('/googleEventFetch', function(req, res) {
 			for (var i=0; i<allCals.length; i++) {
 				console.log(i);
 				console.log(chosenCals);
-				console.log(allCalls[i].title);
+				
+				console.log(allCalls[i]);
 				// if (arrayContains(chosenCals, allCals[i].title)) {
 				// 	console.log(i);
 				// 	console.log(allCalls[i].title);
