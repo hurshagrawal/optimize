@@ -109,23 +109,21 @@ app.post('/googleEventFetch', function(req, res) {
 		},
 		function getEventsFromParticularCalendars(err, replies) {
 			var allCals = JSON.parse(replies[0]);
-			
-			console.log(allCals);
-			
+						
 			var group = this.group();
 			for (var i=0; i<allCals.length; i++) {
 				console.log(i);
 				console.log(chosenCals);
 				console.log(allCalls[i].title);
-				if (arrayContains(chosenCals, allCals[i].title)) {
-					console.log(i);
-					console.log(allCalls[i].title);
-					getGoogleEventsDate(req, res, fromDate, toDate, allCals[i].eventFeedLink, group());
-				}
+				// if (arrayContains(chosenCals, allCals[i].title)) {
+				// 	console.log(i);
+				// 	console.log(allCalls[i].title);
+				// 	getGoogleEventsDate(req, res, fromDate, toDate, allCals[i].eventFeedLink, group());
+				// }
 			}
 		},
 		function returnToWebapp(err, list) {
-			console.log(list);
+			console.log("list");
 			// var eventList = new Array();
 			// for (var i=0; i<list.length;i++) {
 			// 	eventList = eventList.concat(list[i]);
