@@ -1,8 +1,15 @@
 <link rel='stylesheet' href='/stylesheets/index.css' />
 <script type="text/javascript" charset="utf-8">
-	
 	function googleOAuthSuccess() {
-		console.log("SUCCESS!!!");
+		$.ajax({
+			type: 'POST',
+			url: '/googleCalendarFetch',
+			data: null,
+			success: function(data) {
+				optimize.events = data.eventList;
+				$("#content").load(data.url);
+			}
+		});
 	}
 	
 	function openGoogleOAuthWindow() {

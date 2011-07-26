@@ -83,6 +83,25 @@ app.get('/googleAuthSuccess', function(req, res) {
 
 });
 
+app.get('/googleCalendarFetch', function(req, res) {
+	
+	step(
+		function getCalendarList() {
+			client.mget(req.sessionID+':google:calendarList', this);
+		},
+		function returnToWebapp(err, replies) {
+			
+			var responseString = {
+				url: "/calendars",
+				eventList: replies[0]
+			}
+			res.writeHead(200, {'Content-Type':'text/json'});
+			res.end(JSON.stringify(responseString));
+		}
+	);
+	
+});
+
 app.post('/googleEventFetch', function(req, res) {
 	
 	var chosenCals = JSON.parse(req.body.calendar);
@@ -119,9 +138,7 @@ app.post('/googleEventFetch', function(req, res) {
 			for (var i=0; i<list.length;i++) {
 				eventList = eventList.concat(list[i]);
 			}
-			
 			//console.log(eventList);
-			
 			var responseString = {
 				url: "/events",
 				eventList: eventList
