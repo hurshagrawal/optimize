@@ -55,9 +55,7 @@ app.error(function(err, req, res, next){
 
 // Routes
 app.get('/', function(req, res){
-	res.render('index', {
-		page: "splash"
-	});
+	res.render('index', {});
 });
 
 app.get('/getGoogleRequestToken', function(req, res) {
@@ -78,10 +76,8 @@ app.get('/googleAuthSuccess', function(req, res) {
 		function getGoogleCalendarData() {
 			getGoogleCalendarList(req, res, this);
 		},
-		function returnToWebapp() {
-			res.render('index', {
-				page: "calendars"
-			});
+		function returnToWebapp() {			
+			res.render('self.close()', {});
 		}
 	);
 
