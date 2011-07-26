@@ -1,12 +1,9 @@
 <link rel='stylesheet' href='/stylesheets/index.css' />
 <script type="text/javascript" charset="utf-8">
-	$(function() {
-		$("#googleOAuthSuccess").click(function() {
-			console.log("SUCESSS!");
-		});
-		
-		$("#googleOAuthSuccess").click();
-	});
+	
+	function googleOAuthSuccess() {
+		console.log("SUCCESS!!!");
+	}
 	
 	function openGoogleOAuthWindow() {
 		googleAuthWin = window.open('/getGoogleRequestToken', 
@@ -15,6 +12,6 @@
 	}
 </script>
 <h1>Welcome to the app! Click below to sign in.</h1>
-<div id="googleOAuthSuccess" style="display: none"></div>
+<div id="googleOAuthSuccess" onclick="javascript:googleOAuthSuccess();" style="display: none"></div>
 <br>
 <a href="javascript:openGoogleOAuthWindow();">Click to sign in with Google Calendar</a>
