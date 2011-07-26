@@ -115,6 +115,7 @@ app.post('/googleEventFetch', function(req, res) {
 			var group = this.group();
 			for (var i=0; i<allCals.length; i++) {
 				if (arrayContains(chosenCals, allCals[i].title)) {
+					console.log(i);
 					console.log(allCalls[i].title);
 					getGoogleEventsDate(req, res, fromDate, toDate, allCals[i].eventFeedLink, group());
 				}
@@ -245,7 +246,7 @@ var getGoogleEventsDate = function(req, res, startDate, endDate, calendarFeed, c
 		
 		googleoa.get(requestURL, replies[0], replies[1], function(error, data, results) {
 			if (error) {
-				sys.puts('error: ' + sys.inspect(error));
+				console.log('error: ' + sys.inspect(error));
 			} else {
 				var eventList = JSON.parse(data).data;
 				
