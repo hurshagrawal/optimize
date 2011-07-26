@@ -115,6 +115,7 @@ app.post('/googleEventFetch', function(req, res) {
 			for (var i=0; i<allCals.length; i++) {
 				if (arrayContains(chosenCals, allCals[i].title)) {
 					console.log(allCals[i].title);
+					group();
 					//getGoogleEventsDate(req, res, fromDate, toDate, allCals[i].eventFeedLink, group());
 				}
 			}
@@ -279,14 +280,9 @@ var padNum = function(n) {
 
 var arrayContains = function(array, value) {
 	for(var j=0;j<array.length;j++) {
-		console.log("---");
-		console.log(array[j]);
-		console.log(value);
 		if (array[j] === value) {
-			console.log("true");
 			return true;
 		}
 	}
-	console.log("false");	
 	return false;
 }
