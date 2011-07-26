@@ -1,15 +1,32 @@
-<link rel='stylesheet' href='/stylesheets/index.css' />
-<script type="text/javascript" charset="utf-8">
-	function googleOAuthSuccess() {
-		$("#content").load('/calendars');
-	}
-	
-	function openGoogleOAuthWindow() {
-		googleAuthWin = window.open('/getGoogleRequestToken', 
-			'open_window', 
-			'status, scrollbars, resizable, dependent, width=640, height=400');
-	}
-</script>
-<h1>Welcome to the app! Click below to sign in.</h1>
-<br>
-<a href="javascript:openGoogleOAuthWindow();">Click to sign in with Google Calendar</a>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Optimize Your Night</title>
+		<link rel='stylesheet' href='/stylesheets/style.css' />
+		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
+	</head>
+	<body>
+		<div id="main">
+			<div id="header">
+				<p>Optimize Your Night</p>
+			</div>
+			<div id="content">
+				<link rel='stylesheet' href='/stylesheets/index.css' />
+				<script type="text/javascript" charset="utf-8">
+					function googleOAuthSuccess() {
+						$("#content").load('/calendars');
+					}
+
+					function openGoogleOAuthWindow() {
+						googleAuthWin = window.open('/getGoogleRequestToken', 
+							'open_window', 
+							'status, scrollbars, resizable, dependent, width=640, height=400');
+					}
+				</script>
+				<h1>Welcome to the app! Click below to sign in.</h1>
+				<br>
+				<a href="javascript:openGoogleOAuthWindow();">Click to sign in with Google Calendar</a>
+			</div>
+		</div>
+	</body>
+</html>
