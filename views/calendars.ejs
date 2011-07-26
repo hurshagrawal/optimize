@@ -74,10 +74,8 @@
 				url: '/googleEventFetch',
 				data: dataString,
 				success: function(data) {
-					console.log(data);
-					// var resData = $.parseJSON(data);
-					// optimize.events = resData.eventList;
-					// $("#content").load(resData.url);
+					optimize.events = data.eventList;
+					$("#content").load(data.url);
 				}
 			});
 		});	
