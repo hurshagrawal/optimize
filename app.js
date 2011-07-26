@@ -89,10 +89,12 @@ app.get('/googleAuthSuccess', function(req, res) {
 
 app.post('/googleEventFetch', function(req, res) {
 	
+	console.log("1");
 	var chosenCals = JSON.parse(req.body.calendar);
 	
 	fromDate = new Date();
 	toDate = new Date();
+	console.log("2");
 	
 	fromDate.setDate(parseInt(req.body.fromDay));
 	fromDate.setMonth(parseInt(req.body.fromMonth));
@@ -102,12 +104,15 @@ app.post('/googleEventFetch', function(req, res) {
 	toDate.setMonth(parseInt(req.body.toMonth));
 	toDate.setFullYear(parseInt(req.body.toYear));
 	toDate.setHours(parseInt(req.body.toHour));
+	console.log("3");
 	
 	step(
 		function getCalendarList() {
+			console.log("4");
 			client.mget(req.sessionID+':google:calendarList', this);
 		},
 		function getEventsFromParticularCalendars(err, replies) {
+			console.log("5");
 			var allCals = JSON.parse(replies[0]);
 			
 			console.log(allCals.length);
