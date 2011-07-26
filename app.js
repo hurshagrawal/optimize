@@ -120,19 +120,19 @@ app.post('/googleEventFetch', function(req, res) {
 		},
 		function returnToWebapp(err, list) {
 			console.log(list);
-			var eventList = new Array();
-			for (var i=0; i<list.length;i++) {
-				eventList = eventList.concat(list[i]);
-			}
-			
-			console.log(eventList);
-			
-			var responseString = {
-				url: "/events",
-				eventList: JSON.stringify(eventList)
-			}
-			res.writeHead(200, {'Content-Type':'text/json'});
-			res.end(JSON.stringify(responseString));
+			// var eventList = new Array();
+			// for (var i=0; i<list.length;i++) {
+			// 	eventList = eventList.concat(list[i]);
+			// }
+			// 
+			// console.log(eventList);
+			// 
+			// var responseString = {
+			// 	url: "/events",
+			// 	eventList: JSON.stringify(eventList)
+			// }
+			// res.writeHead(200, {'Content-Type':'text/json'});
+			// res.end(JSON.stringify(responseString));
 		}
 	);
 });
