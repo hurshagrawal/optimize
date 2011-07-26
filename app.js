@@ -77,7 +77,7 @@ app.get('/googleAuthSuccess', function(req, res) {
 			getGoogleCalendarList(req, res, this);
 		},
 		function returnToWebapp() {			
-			res.redirect('self.close()');
+			res.render('close', {});
 		}
 	);
 
@@ -133,10 +133,6 @@ app.post('/googleEventFetch', function(req, res) {
 });
 
 //AJAX Routes
-app.get('/splash', function(req, res) {
-	res.render('splash', {});
-});
-
 app.get('/calendars', function(req, res) {
 	
 	client.mget(req.sessionID+':google:calendarList',
