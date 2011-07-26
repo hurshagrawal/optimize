@@ -60,7 +60,6 @@ $(function() {
 	$("#continue").click(function() {
 		$("#continue").hide();
 		$("#loading").css("display", "table");
-		window.setInterval("animateLoading()", 1000);
 		
 		var dataString = 'calendar=' + $.toJSON(optimize.selectedList) + '&fromDay=' + $("select[name='fromDay']").val() + '&fromMonth=' + $("select[name='fromMonth']").val() + '&fromYear=' + $("select[name='fromYear']").val() + '&fromHour=' + $("select[name='fromHour']").val() + '&toDay=' + $("select[name='toDay']").val() + '&toMonth=' + $("select[name='toMonth']").val() + '&toYear=' + $("select[name='toYear']").val() + '&toHour=' + $("select[name='toHour']").val();
 		
@@ -77,8 +76,3 @@ $(function() {
 		});
 	});	
 });
-
-function animateLoading() {
-	$("#loading span").html( new Array(++optimize.dotCount).join(".") );
-	optimize.dotCount = optimize.dotCount%4;
-}
