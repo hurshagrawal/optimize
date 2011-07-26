@@ -124,11 +124,11 @@ app.post('/googleEventFetch', function(req, res) {
 				eventList = eventList.concat(list[i]);
 			}
 			
-			console.log(eventList);
+			//console.log(eventList);
 			
 			var responseString = {
 				url: "/events",
-				eventList: JSON.stringify(eventList)
+				eventList: eventList
 			}
 			res.writeHead(200, {'Content-Type':'text/json'});
 			res.end(JSON.stringify(responseString));
