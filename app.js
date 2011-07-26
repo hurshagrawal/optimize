@@ -115,11 +115,10 @@ app.post('/googleEventFetch', function(req, res) {
 			for (var i=0; i<allCals.length; i++) {
 				console.log(i);
 				console.log(chosenCals);
-				
-				console.log(allCalls[i]);
+				console.log(allCals[i].title);
 				// if (arrayContains(chosenCals, allCals[i].title)) {
 				// 	console.log(i);
-				// 	console.log(allCalls[i].title);
+				// 	console.log(allCals[i].title);
 				// 	getGoogleEventsDate(req, res, fromDate, toDate, allCals[i].eventFeedLink, group());
 				// }
 			}
