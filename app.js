@@ -113,14 +113,14 @@ app.post('/googleEventFetch', function(req, res) {
 			
 			var group = this.group();
 			for (var i=0; i<allCals.length; i++) {
-				console.log(allCals[i]);
-				console.log((allCals[i] === chosenCals[1]));
-				console.log((allCals[i] === chosenCals[2]));
-				console.log((allCals[i] === chosenCals[3]));
-				if (arrayContains(chosenCals, allCals[i].title)) {
-					console.log(allCals[i].title);
-					getGoogleEventsDate(req, res, fromDate, toDate, allCals[i].eventFeedLink, group());
-				}
+				console.log(allCals[i].title);
+				console.log((allCals[i].title === chosenCals[1]));
+				console.log((allCals[i].title === chosenCals[2]));
+				console.log((allCals[i].title === chosenCals[3]));
+				// if (arrayContains(chosenCals, allCals[i].title)) {
+				// 		console.log(allCals[i].title);
+				// 		getGoogleEventsDate(req, res, fromDate, toDate, allCals[i].eventFeedLink, group());
+				// 	}
 			}
 		},
 		function returnToWebapp(err, list) {
@@ -286,7 +286,7 @@ var arrayContains = function(array, value) {
 		console.log("---");
 		console.log(array[j]);
 		console.log(value);
-		if (array[i] === value) {
+		if (array[j] === value) {
 			console.log("true");
 			return true;
 		}
