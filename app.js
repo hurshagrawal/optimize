@@ -59,6 +59,13 @@ app.get('/', function(req, res){
 	res.render('index', {});
 });
 
+// FOR TESTING FOR TESTING FOR TESTING FOR TESTING FOR TESTING FOR TESTING FOR TESTING FOR TESTING FOR TESTING 
+app.get('/eventTest', function(req, res) {
+	res.render('events_test', {});
+})
+
+// FOR TESTING FOR TESTING FOR TESTING FOR TESTING FOR TESTING FOR TESTING FOR TESTING FOR TESTING FOR TESTING 
+
 // OAUTH ROUTES
 app.get('/getGoogleRequestToken', function(req, res) {
 	getGoogleRequestToken(req, res);
@@ -127,9 +134,7 @@ app.post('/googleEventFetch', function(req, res) {
 				url: "/events",
 				eventList: eventList
 			}
-			
-			console.log(JSON.stringify(eventList));
-			
+						
 			res.writeHead(200, {'Content-Type':'text/json'});
 			res.end(JSON.stringify(responseString));
 		}
