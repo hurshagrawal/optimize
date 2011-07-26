@@ -89,12 +89,10 @@ app.get('/googleAuthSuccess', function(req, res) {
 
 app.post('/googleEventFetch', function(req, res) {
 	
-	console.log("1");
 	var chosenCals = JSON.parse(req.body.calendar);
 	
 	fromDate = new Date();
 	toDate = new Date();
-	console.log("2");
 	
 	fromDate.setDate(parseInt(req.body.fromDay));
 	fromDate.setMonth(parseInt(req.body.fromMonth));
@@ -104,21 +102,21 @@ app.post('/googleEventFetch', function(req, res) {
 	toDate.setMonth(parseInt(req.body.toMonth));
 	toDate.setFullYear(parseInt(req.body.toYear));
 	toDate.setHours(parseInt(req.body.toHour));
-	console.log("3");
 	
 	step(
 		function getCalendarList() {
-			console.log("4");
 			client.mget(req.sessionID+':google:calendarList', this);
 		},
 		function getEventsFromParticularCalendars(err, replies) {
-			console.log("5");
 			var allCals = JSON.parse(replies[0]);
 			
 			console.log(allCals.length);
 			
 			var group = this.group();
 			for (var i=0; i<allCals.length; i++) {
+				console.log(i);
+				console.log(chosenCals);
+				console.log(allCalls[i].title);
 				if (arrayContains(chosenCals, allCals[i].title)) {
 					console.log(i);
 					console.log(allCalls[i].title);
@@ -285,9 +283,9 @@ var padNum = function(n) {
 };
 
 var arrayContains = function(array, value) {
-	for(var i=0;i<array.length;i++) {
+	for(var j=0;j<array.length;j++) {
 		console.log("---");
-		console.log(array[i]);
+		console.log(array[j]);
 		console.log(value);
 		if (array[i] === value) {
 			console.log("true");
