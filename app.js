@@ -77,7 +77,7 @@ app.get('/googleAuthSuccess', function(req, res) {
 			getGoogleCalendarList(req, res, this);
 		},
 		function returnToWebapp() {			
-			res.render('close', {});
+			res.render('/close.html', {});
 		}
 	);
 
