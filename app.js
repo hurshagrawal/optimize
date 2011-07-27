@@ -129,12 +129,16 @@ app.post('/googleEventFetch', function(req, res) {
 			for (var i=0; i<list.length;i++) {
 				eventList = eventList.concat(list[i]);
 			}
-			//console.log(eventList);
+
+			eventList = parseEventList(eventList);
+			
 			var responseString = {
 				url: "/events",
 				eventList: eventList
 			}
-						
+			
+			console.log(JSON.stringify(eventList));
+			
 			res.writeHead(200, {'Content-Type':'text/json'});
 			res.end(JSON.stringify(responseString));
 		}
@@ -283,4 +287,35 @@ var arrayContains = function(array, value) {
 		}
 	}
 	return false;
-}
+};
+
+var parseEventList = function(list) {
+	var rawList = JSON.parse(list);
+	var eventList = new Array();
+	var thisEvent;
+	
+	for (var i=0; i<rawList.length; i++) {
+		thisEvent = {
+			title: rawList[i].title,
+			start: parseDate(rawList[i].when[0].start),
+			end: parseDate(rawList[i].when[0].end),
+			location: rawList[i].location
+		};
+		
+		eventList.push(thisEvent);
+	}
+	
+	return eventList;
+};
+
+var parseDate = function(dateString) {
+	var d = new Date();
+	
+	d.setFullYear(parseInt(dateString.substring(0,4)));
+	d.setMonth(parseInt(dateString.substring(5,7)));
+	d.setDate(parseInt(dateString.substring(8,10)));
+	d.setHours(parseInt(dateString.substring(11,13)));
+	d.setMinutes(parseInt(dateString.substring(14,16)));
+	
+	return d;
+};
