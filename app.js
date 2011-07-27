@@ -297,8 +297,8 @@ var parseEventList = function(list) {
 	for (var i=0; i<rawList.length; i++) {
 		thisEvent = {
 			title: rawList[i].title,
-			start: parseDate(rawList[i].when[0].start),
-			end: parseDate(rawList[i].when[0].end),
+			start: rawList[i].when[0].start,
+			end: rawList[i].when[0].end,
 			location: rawList[i].location
 		};
 		
@@ -306,16 +306,4 @@ var parseEventList = function(list) {
 	}
 	
 	return eventList;
-};
-
-var parseDate = function(dateString) {
-	var d = new Date();
-	
-	d.setFullYear(parseInt(dateString.substring(0,4)));
-	d.setMonth(parseInt(dateString.substring(5,7)));
-	d.setDate(parseInt(dateString.substring(8,10)));
-	d.setHours(parseInt(dateString.substring(11,13)));
-	d.setMinutes(parseInt(dateString.substring(14,16)));
-	
-	return d;
 };
